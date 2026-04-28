@@ -1,0 +1,1 @@
+import type{NavItem}from"@/types/profile";export const navigationItems:NavItem[]=[{label:"Home",href:"#hero"},{label:"Experience",href:"#experience"},{label:"Projects",href:"#projects"},{label:"Education",href:"#education"},{label:"Skills",href:"#skills"},{label:"Contact",href:"#contact"}];

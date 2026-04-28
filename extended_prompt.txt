@@ -1,0 +1,458 @@
+Build a one-page professional portfolio website for Hussein Maatouk using Next.js 14 App Router, TypeScript, and Tailwind CSS only. This is a static website only with no backend, no forms with submission, no database, and no APIs. The experience must feel polished, modern, bright, elegant, and high-trust—closer to a premium data/AI consultant portfolio than a generic CV page. The site should present Hussein as an emerging but highly capable data professional with strong expertise across BI, data engineering, AI, geospatial fairness research, and visualization. The overall impression should be intellectually sharp, visually clean, and internationally credible, with a white/light aesthetic, strong typography, subtle motion, and an editorial layout that transforms resume content into a high-end digital identity.
+
+1. Color Palette
+Design this portfolio light-mode-first because the user explicitly requested bright/white colors, and because a clean light interface best communicates clarity, intelligence, and professionalism for a data science and BI profile.
+
+Use a refined, airy palette with crisp neutrals and a restrained blue-cyan intelligence accent:
+- Primary: #1D4ED8 — confident cobalt blue for primary CTAs, key links, highlighted metrics, and selected navigation states
+- Secondary: #0F766E — sophisticated teal for supporting emphasis, data-related highlights, timeline accents, and badges
+- Accent: #7C3AED — restrained violet for selective highlights, hover glows, and premium visual contrast in small doses
+- Background main: #F8FAFC — soft off-white, never stark clinical white
+- Surface/card: #FFFFFF — elevated card tone for layered sections and floating content blocks
+- Surface alternate: #EEF4FF — cool pale blue-tinted surface for selected bands and stat strips
+- Heading text: #0F172A — near-black slate for high contrast and authority
+- Body text: #334155 — refined slate gray for readable long-form copy
+- Muted text: #64748B — secondary descriptive text, captions, dates, locations
+- Border/divider: #E2E8F0 — subtle separation for cards, grids, section boundaries
+- Soft shadow tint: rgba(15, 23, 42, 0.08) for elegant card elevation
+
+Interactive states:
+- Primary hover: #1E40AF
+- Primary active: #1E3A8A
+- Secondary hover: #0F5F59
+- Accent hover: #6D28D9
+- Disabled: #CBD5E1 with reduced opacity
+- Focus ring: #93C5FD for blue interactive elements, #C4B5FD for violet-accent interactive details
+
+Gradient language:
+- Hero gradient wash: linear blend from #FFFFFF through #F8FAFC to #EEF4FF for soft atmospheric depth
+- Accent gradient: from #1D4ED8 to #7C3AED used sparingly on highlight text, small dividers, and CTA emphasis
+
+Apply the 60-30-10 rule:
+- 60% white/off-white neutrals
+- 30% blue/teal intelligence tones
+- 10% violet accent and gradient detail
+
+Avoid loud saturation, harsh black, or startup-neon palettes. The website should feel bright but not sterile.
+
+2. Typography & Visual Hierarchy
+The typographic voice should communicate analytical precision with warmth and maturity. Use a modern geometric or neo-grotesk sans-serif for headings paired with a highly readable humanist or grotesk sans-serif for body text. The implementation agent should load fonts using next/font.
+
+Typography direction:
+- Headings: bold, clean, slightly condensed feel if possible, with tracking-tight and sharp line breaks
+- Body: highly legible, slightly softer, comfortable for professional scanning
+- Labels: uppercase, tracking-widest, small size, muted color for metadata and section intros
+
+Recommended hierarchy:
+- H1 hero name/title: text-5xl md:text-7xl lg:text-8xl, font-bold to font-black, tracking-tight, leading-none
+- H2 section headings: text-3xl md:text-5xl, font-bold, tracking-tight
+- H3 subsection/card titles: text-xl md:text-2xl, font-semibold
+- Body text: text-base md:text-lg, leading-relaxed
+- Meta labels and supporting text: text-sm md:text-base, text-muted color
+- Timeline date/location text: text-sm, font-medium, uppercase or semi-uppercase treatment where useful
+
+Weight distribution:
+- font-black or font-extrabold for hero name and main statement
+- font-bold for section titles and key numbers
+- font-semibold for role titles, card headings, navigation emphasis
+- font-medium for dates, labels, metadata
+- font-normal for body copy
+
+Special treatments:
+- Use gradient text subtly on a small phrase in the hero, not the full headline
+- Use uppercase tracking-widest for section intros such as EXPERIENCE, EDUCATION, PROJECTS
+- Use oversized numeric stats as visual anchors
+- Quotes or mission-like lines can use italic or lighter weight for contrast
+
+3. Site Structure & Routes
+This must be a one-page portfolio only. Use a single route:
+- / — the entire professional portfolio experience
+
+The user journey should flow like this:
+- Immediate identity and value proposition
+- Quick trust signals and key strengths
+- Career timeline and current focus
+- Selected research and project proof
+- Education, skills, and language capability
+- Volunteering and personal depth
+- Clear contact references in the footer and persistent header CTA anchor links
+
+The page should use anchored navigation to scroll to major sections:
+- Hero
+- Experience
+- Projects
+- Education
+- Skills
+- Contact
+
+4. Global Layout & Layout Files
+Use src/app/layout.tsx as the global shell. The layout should establish a premium light visual environment with generous whitespace and subtle ambient background layers.
+
+Persistent header:
+- Slim, elegant, semi-transparent header over the hero
+- Becomes slightly more solid with blur on scroll
+- Left: Hussein Maatouk wordmark or simple monogram + full name
+- Center/right on desktop: anchor navigation links to sections
+- Far right: primary CTA button such as “View Experience” or “Contact” linking to the contact section
+- Mobile: clean hamburger that opens a minimal full-screen overlay or slide-in panel with section links
+
+Persistent footer:
+- Clean, understated footer on a slightly tinted surface band
+- Include name, location, email, phone, and short closing statement
+- Include quick anchor links repeated in compact form
+- Include small legal-style note such as portfolio/curriculum identity line
+
+Container behavior:
+- Main content sections sit in max-w-7xl mx-auto with px-6 md:px-8 lg:px-10
+- Hero and selected visual separators can be full-bleed
+- Section rhythm should be generous: py-20 md:py-28 lg:py-32
+- Alternate between white and subtle off-white/blue-tinted section backgrounds to create pacing
+
+Persistent decorative elements:
+- Very soft gradient orbs in hero/background corners
+- Faint grid or dot texture in selected surfaces for a data-inspired aesthetic
+- Thin gradient dividers between major sections
+- No noisy effects; everything should stay elegant and light
+
+5. Next.js Folder & File Structure
+Use a minimal components approach. Most section markup should remain directly inside the page file unless reused multiple times. Significant content arrays must live in src/data, not inline.
+
+Conceptual structure:
+- src/app/layout.tsx — global shell, metadata, body structure, global header/footer usage
+- src/app/page.tsx — one-page portfolio with all sections assembled in narrative order
+- src/app/globals.css — Tailwind base layer and any minimal global utility styling conventions
+- src/components/Header.tsx — reusable responsive anchored navigation header
+- src/components/Footer.tsx — reusable footer with contact references
+- src/components/SectionLabel.tsx — small reusable uppercase section intro label used across multiple sections
+- src/components/TimelineItem.tsx — reusable experience/education timeline block if reused consistently
+- src/components/InfoCard.tsx — reusable card for stats, skills, or project highlights
+- src/data/profile.ts — personal details, headline, contact, intro summary, location, languages
+- src/data/experience.ts — structured work experience and thesis items
+- src/data/education.ts — academic background
+- src/data/projects.ts — selected projects with concise descriptions, technologies, and links
+- src/data/skills.ts — grouped skills and soft skills
+- src/data/navigation.ts — anchored navigation labels
+- src/lib/utils.ts — generic utility helpers such as class merging if needed conceptually
+- src/types/profile.ts — conceptual type definitions for structured data models
+
+All large arrays for roles, projects, education, skills, and languages must be stored in src/data.
+
+6. Page-by-Page Structure & Content
+Only one page exists, but it must feel editorial and layered rather than like a long plain resume.
+
+Page: /
+Purpose & audience:
+- Designed for recruiters, hiring managers, research collaborators, and data/AI teams evaluating Hussein’s profile quickly but seriously
+- The page must convert dense CV content into a memorable professional narrative
+
+Visual narrative:
+- It opens with clarity and confidence: a bright, high-end hero that immediately frames Hussein as a Data Engineer / BI / AI professional
+- It then moves into measurable trust signals and a carefully paced career timeline
+- It transitions into deeper proof through research and project work
+- It closes with global capability markers: education, tools, languages, and volunteering, ending on a clean contact note
+- The emotional arc should move from sharp first impression to technical credibility to human depth
+
+Detailed section breakdown:
+
+A. Hero Section
+- Full-viewport or near full-viewport opening with soft white-to-blue atmospheric gradient background
+- Left-aligned content block on desktop with strong vertical rhythm; centered but still refined on mobile
+- Include small pill label such as “Data Science • BI • Cloud Engineering”
+- Main H1 should use actual headline text:
+  “Hussein Maatouk”
+- Supporting hero statement should be real and specific:
+  “Building reliable data systems, fair intelligent models, and clear analytical experiences.”
+- Add a short paragraph summarizing his profile using distilled resume content: data engineering, BI architecture, AI research, geospatial fairness, and visualization strengths
+- Include quick metadata row with location, email, phone, and nationality in elegant mini chips or inline separators
+- Add two CTAs: primary anchor to Experience, secondary anchor to Projects or Contact
+- On the right side or subtly behind the content, add an abstract visual panel inspired by dashboards/data grids, or a portrait-style professional scene image relevant to analytics work
+- Transition into the next section using a floating stats strip overlapping the hero bottom edge
+
+B. Trust Signals / Snapshot Strip
+- A floating horizontal or responsive grid card band overlapping hero and next section
+- Use 4 stat cards with oversized numbers or labels:
+  - “110 Cum Laude”
+  - “3 Languages”
+  - “5M+ tree records explored”
+  - “BI, Cloud, AI, Geospatial”
+- White cards with soft shadow and subtle border
+- Hover lift and subtle gradient line on top edge
+- This section should quickly translate CV density into immediate proof
+
+C. Professional Profile / About Section
+- Two-column asymmetric layout
+- Left: a concise narrative paragraph block titled with an actual heading such as “A data career shaped by systems, fairness, and clarity”
+- Right: a stacked set of mini cards highlighting current role, master thesis focus, and core working style
+- Use a pale blue-tinted background band
+- This section should feel like a distilled executive summary, not a generic About Me
+
+D. Experience Section
+- Main heading text:
+  “Experience across BI architecture, research, and cloud data operations”
+- Use a premium vertical timeline layout with subtle line, date markers, and floating cards
+- Each entry should include role, organization, date range, location, and 3–5 impact bullets distilled from the provided content
+- Sequence should highlight:
+  1. Big Data and Cloud Engineer — Horsa — current
+  2. BI Architect Intern — Visualitics
+  3. Master Thesis — Fairness-Aware Geospatial Data Preprocessing — University of Genova
+- Alternate cards left/right on desktop; single column on mobile
+- Visual treatment: white cards on soft neutral background, with role labels and teal/blue timeline indicators
+- Add small skill tags under each role such as dbt, Kafka, Airflow, Tableau Server, Python, PostGIS, REST APIs
+- Scroll reveal animation on each timeline item with slight stagger
+
+E. Featured Thesis / Research Highlight Section
+- This deserves its own spotlight section because it is distinctive and differentiating
+- Split-screen layout with text on one side and a conceptual research visual/image on the other
+- Heading:
+  “Researching fairness where data meets geography”
+- Include a structured content block describing:
+  - literature review across 20+ papers
+  - three scenarios addressing bias in spatial queries
+  - automated query-rewriting algorithm
+  - fairness outcomes and performance analysis
+- Include 3 visual highlight cards for Representation Bias, Coverage Gaps, Query Rewriting
+- Use layered surfaces and a slightly more editorial composition than the rest of the page
+- This section should feel academic but modern, showing Hussein is not only implementationally strong but also intellectually original
+
+F. Projects Section
+- Heading:
+  “Selected work in visualization, AI, and intelligent systems”
+- Use a responsive bento-grid layout rather than uniform cards
+- Feature TechEUR_Insights as the largest tile because it has concrete details and public link
+- Project tile should include:
+  - project name
+  - concise one-paragraph description
+  - tech stack chips
+  - note about 5 million trees dataset and D3.js visual storytelling
+  - external link label presented elegantly
+- Additional smaller project tiles for:
+  - Jade(Java)-Infused Supply Chain Optimization Using Multiagent Systems Technologies
+  - Syntactic analysis SQL versus PySpark
+  - RASA Powered Chatbot Data Querying: An Intuitive SQL Alternative For Non-Programmers
+  - Image Captioning Generation: conductive study and experimental analysis
+- Visual treatment:
+  - large cards with varied span widths
+  - one or two cards can use accent-tinted backgrounds
+  - image thumbnail or abstract visual at top for featured project
+  - hover state should slightly enlarge image and elevate card
+
+G. Education Section
+- Clean split layout or stacked academic timeline
+- Heading:
+  “Academic foundation with applied depth”
+- Highlight Master in Data Science and Artificial Intelligence prominently
+- Include actual educational summary points derived from the user content:
+  - statistical learning
+  - deep learning and computer vision
+  - LLMs, signal processing, distributed computing
+  - data visualization, trustworthy AI, predictive analytics
+  - final grade 110 Cum Laude
+- Secondary entries:
+  - Bachelor of Science in Computer Science
+  - General Trainer Course — Lebanese Red Cross
+- Consider a featured grade badge for 110 Cum Laude as a visual focal point
+
+H. Skills & Languages Section
+- Use a modular card-grid layout with categories rather than one long list
+- Heading:
+  “Tools, methods, and working strengths”
+- Categories:
+  - Data Engineering & Cloud
+  - BI & Visualization
+  - AI / Machine Learning
+  - Programming & Data Processing
+  - Databases & Querying
+  - Soft Skills
+  - Languages
+- Skills should be displayed as refined pills or grouped chips, not paragraph dumps
+- Highlight notable tools and concepts from the CV:
+  Tableau, Python, PySpark, dbt, Kafka, Airflow/Composer, Dataform, SQL, PostgreSQL, MySQL, PostGIS, APIs, D3.js, Pandas, NumPy, Scikit-Learn, GeoPandas, Plotly, Matplotlib, CNNs, GANs, clustering, JSON, Git
+- Languages should be shown with level indicators:
+  Arabic native, English C1/C1/B2/C1/B2 condensed into a clean “Advanced professional proficiency” presentation, Italian B2
+- The presentation should prioritize scanning and elegance over exhaustive exam-table formatting
+
+I. Volunteering / Human Dimension Section
+- A narrower, quieter section for emotional balance
+- Heading:
+  “Leadership beyond technical work”
+- Summarize Lebanese Red Cross Youth and Health General Trainer experience with emphasis on teaching, community support, and leadership during difficult circumstances including the Beirut blast period
+- Use a simple card with quote-style presentation or side-highlight bar
+- This section prevents the site from feeling overly mechanical and adds character
+
+J. Contact / Closing Section
+- Final full-width section on a white or soft gradient surface
+- Heading:
+  “Open to meaningful data and AI opportunities”
+- Include compact closing paragraph positioning Hussein as available for roles, collaborations, and conversations in data engineering, BI, analytics, and AI-related work
+- Present contact methods as large, elegant clickable cards or inline blocks:
+  - Email: Husseinmaatouk506@gmail.com
+  - Phone: (+39) 3892460815
+  - Location: Genova, Italy
+- If project links are included, TechEUR_Insights can be surfaced again here
+- This is not a submission form; just direct contact information and external profile/project links if desired
+
+7. Components & Reusable UI
+Keep reusable components minimal and purposeful.
+
+- Header
+  - Purpose: persistent anchored navigation and top-level CTA
+  - Reused in layout across the one-page shell
+  - Props: navigation items, CTA label, optional current section state
+  - Visual behavior: transparent at top, blurred light surface on scroll, active section highlight, mobile overlay menu
+  - Animation: smooth background transition and menu reveal
+
+- Footer
+  - Purpose: persistent closing identity and repeated contact details
+  - Reused globally
+  - Props: name, email, phone, location, navigation items
+  - Visual behavior: understated, multi-column on desktop, stacked on mobile
+
+- SectionLabel
+  - Purpose: reusable uppercase intro label above major headings
+  - Reused across most sections
+  - Props: text
+  - Visual behavior: small uppercase muted text with tracking-widest and optional gradient dash/divider
+
+- TimelineItem
+  - Purpose: reusable role/education block if timeline design is shared
+  - Reused in experience and possibly education
+  - Props: date range, role title, institution/company, location, bullets, tags
+  - Visual behavior: elevated card, timeline marker, hover lift, reveal-on-scroll
+
+- InfoCard
+  - Purpose: stat cards, project cards, or skill category cards where structure repeats
+  - Reused in snapshot strip, project grid, skills categories
+  - Props: title, description, meta, tags, variant, link
+  - Visual behavior: white card with subtle border and shadow, hover elevation, optional image area
+
+8. Images & Media
+All images must be local AI-generated files under public/images/. No external URLs.
+
+Required images:
+- public/images/hero-data-portrait.png
+  - Purpose & placement: hero visual panel on the homepage, likely 800x1000 or similar portrait-oriented display inside a rounded frame or layered composition
+  - Visual description: a refined professional portrait-style scene of a young male data professional in a bright modern workspace, laptop open with subtle analytics dashboards visible, clean white and pale blue environment, minimal editorial composition, premium and realistic without looking like stock photography
+  - Mood & color temperature: bright, cool-neutral, intelligent, polished
+  - Alt text: Professional data specialist in a bright modern workspace with analytics screens
+
+- public/images/research-geospatial-fairness.png
+  - Purpose & placement: featured thesis/research section image, page section visual, landscape 1600x900
+  - Visual description: abstract geospatial data visualization with maps, nodes, query paths, fairness overlays, subtle blue and teal layers, elegant academic-tech aesthetic, clean white background with translucent interface panels
+  - Mood & color temperature: cool, analytical, modern, lightly futuristic
+  - Alt text: Abstract geospatial fairness research visualization with layered spatial data elements
+
+- public/images/project-techeur-insights.png
+  - Purpose & placement: featured project card thumbnail, landscape 1200x800 or 800x600
+  - Visual description: interactive data visualization dashboard inspired by tree analytics across the United States, custom charts, map overlays, rich but clean D3.js-inspired interface, white interface surfaces with blue/green data accents
+  - Mood & color temperature: bright, data-rich, exploratory
+  - Alt text: Data visualization dashboard showing U.S. tree analytics and interactive charts
+
+- public/images/abstract-data-grid.png
+  - Purpose & placement: decorative supporting visual for skills or background insert, section image 1600x900
+  - Visual description: premium abstract composition of floating data cards, grid lines, soft glows, chart fragments, and structured analytical geometry on a white background
+  - Mood & color temperature: clean, airy, intelligent
+  - Alt text: Abstract data-themed visual with floating analytical interface elements
+
+- public/images/volunteering-community.png
+  - Purpose & placement: volunteering section image or supporting card visual, landscape 800x600
+  - Visual description: community training environment with guidance, teamwork, and support atmosphere, respectful humanitarian tone, bright natural light, understated documentary realism
+  - Mood & color temperature: warm-neutral, human, hopeful
+  - Alt text: Community leadership and training setting representing volunteering and education
+
+Keep image count focused and intentional. All images should harmonize with the white/blue premium palette.
+
+9. Content Style & Tone
+The brand voice should feel intelligent, disciplined, and quietly confident. This is not loud self-promotion. It should read like a capable data professional with strong technical breadth and serious academic grounding.
+
+Voice characteristics:
+- Clear, precise, and composed
+- International and professional
+- Understated confidence
+- Evidence-driven rather than boastful
+- Human enough to feel approachable, but never casual or sloppy
+
+Headline guidance:
+- Use short, strong, specific statements
+- Prefer 4–10 words
+- Avoid clichés like “Welcome to my portfolio” or “Why choose me”
+- Good examples for this project:
+  - “Building reliable data systems”
+  - “Researching fairness in spatial data”
+  - “Selected work in visualization, AI, and intelligent systems”
+  - “Leadership beyond technical work”
+
+Body copy guidance:
+- Medium-length sentences with strong clarity
+- Avoid fluff and generic motivational language
+- Explain impact, scope, and technical context succinctly
+- Use professional but accessible vocabulary
+
+Navigation labels:
+- Keep short and clear: Profile, Experience, Projects, Education, Skills, Contact
+
+CTA language:
+- Calm and direct, not salesy
+- Examples:
+  - “View experience”
+  - “Explore projects”
+  - “Get in touch”
+  - “See research focus”
+
+Microcopy:
+- Buttons, chips, and labels should remain minimal, polished, and consistent
+- No exclamation marks
+
+10. Interactions, States & Responsiveness
+The site must feel alive through subtle premium motion, never flashy animation.
+
+Hover behaviors:
+- Buttons: darker hover shift, slight scale-up, soft shadow bloom
+- Cards: translate upward slightly, deepen shadow, border becomes slightly more blue-tinted
+- Links: smooth underline grow or color transition
+- Images: subtle zoom inside clipped rounded containers
+- Skill pills: mild background tint shift on hover
+
+Focus states:
+- Visible focus rings on all interactive items
+- Use blue focus ring with ring-offset against light surfaces
+
+Scroll-driven behaviors:
+- Section content fades in and rises gently as it enters viewport
+- Timeline items reveal in staggered sequence
+- Stat cards animate upward or counter in subtly if used numerically
+- Header transitions from transparent to blurred white surface on scroll
+- Smooth anchor scroll between sections
+
+Responsive behavior:
+- Mobile: single-column flow, reduced visual complexity, stacked cards, large tap targets, readable spacing, hero content centered or left-aligned with contained image below text
+- Tablet: two-column transitions where appropriate, especially hero/about/research
+- Desktop: asymmetric layouts, bento project grid, alternating timeline cards, floating stat strip
+- Header on mobile: hamburger with overlay menu and anchor links
+- Footer on mobile: stacked details with clear spacing
+
+11. Special Requirements & Business Rules
+- This is a static portfolio only; do not include backend, forms with submission, authentication, or database functionality
+- Contact section must display direct contact details only, no submission logic
+- Resume content should be edited for clarity and visual elegance, but facts must remain faithful to the provided information
+- The portfolio must feel recruiter-friendly and easy to scan while still visually premium
+- External project link for TechEUR_Insights can be displayed as a standard outbound link reference in content
+- Ensure accessibility with strong contrast, semantic structure, and descriptive alt text
+
+12. Validation & Completion Criteria
+A complete implementation is defined by the following:
+- The website is a fully functioning one-page portfolio at the root route /
+- All required sections are implemented: Hero, Snapshot, Profile, Experience, Research Highlight, Projects, Education, Skills & Languages, Volunteering, Contact, Footer
+- Header anchor navigation scrolls correctly to each major section
+- All supplied personal and professional information is represented accurately and clearly
+- The design follows a bright/white premium aesthetic with the specified palette and typographic hierarchy
+- All styling is fully implemented using Tailwind CSS only
+- No CSS Modules, styled-components, or inline styles are used
+- All data-heavy content is separated into src/data files rather than embedded as large arrays in the page
+- Reusable components are minimal and purposeful
+- All local AI-generated images are referenced properly from /images/... paths
+- There are no placeholder sections, lorem ipsum, TODO markers, broken links, or unresolved imports
+- The page is responsive across mobile, tablet, and desktop
+- Hover, focus, and scroll-reveal interactions are present and polished
+- Accessibility basics are respected: readable contrast, keyboard focus visibility, semantic headings, alt text
+- Since this project is static-only, no backend or Prisma files should exist
+- When validation passes, the Validator agent MUST output "TERMINATE"
