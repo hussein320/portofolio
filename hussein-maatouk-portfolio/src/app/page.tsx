@@ -65,7 +65,7 @@ export default function Page() {
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-tl from-indigo-100 to-sky-100 -rotate-2 opacity-40" />
               <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border border-white/80">
                 <Image
-                  src="/images/hero-data-portrait.png"
+                  src="/images/my_pic.jpeg"
                   alt="Hussein Maatouk &mdash; Data Engineer and BI Architect"
                   fill
                   sizes="(max-width:768px) 320px, (max-width:1024px) 384px, 440px"
