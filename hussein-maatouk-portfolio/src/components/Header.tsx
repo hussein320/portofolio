@@ -80,7 +80,7 @@ export default function Header() {
                 scrolled ? "text-indigo-600" : "text-indigo-300"
               )}
             >
-              Data Analyst · BI Engineer
+              Cloud Data Engineer
             </span>
           </a>
 

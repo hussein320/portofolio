@@ -12,15 +12,14 @@ const profileData: PortfolioData = {
   ],
   profile: {
     name: "Hussein Maatouk",
-    title: "Data Analyst · BI Engineer · Cloud & AI Enthusiast",
-    bio: "Results-driven data professional with a Cum Laude honours degree in Geographic Information Systems and a strong foundation in business intelligence, cloud technologies, and applied AI. Experienced in transforming complex spatial and operational datasets into actionable insights that drive strategic decision-making. Passionate about bridging the gap between raw data and real-world impact across forestry, environment, and enterprise domains.",
+    title: "Cloud Data Engineer",
+    bio: "Cloud data engineer with a Cum Laude honours degree in Geographic Information Systems and hands-on experience building scalable pipelines, orchestrating workloads on cloud platforms, and turning large datasets into reliable analytics foundations. Focused on end-to-end data engineering across distributed systems, geospatial analytics, and applied AI.",
     avatarUrl: "/avatar.jpg",
     contact: [
-      { type: "Email", value: "hussein.maatouk@email.com", href: "mailto:hussein.maatouk@email.com", icon: "mail" },
-      { type: "Phone", value: "+961 xx xxx xxx", href: "tel:+961xxxxxxxx", icon: "phone" },
+      { type: "Email", value: "husseinmaatouk506@gmail.com", href: "mailto:husseinmaatouk506@gmail.com", icon: "mail" },
       { type: "Location", value: "Lebanon", icon: "map-pin" },
       { type: "Nationality", value: "Lebanese", icon: "flag" },
-      { type: "LinkedIn", value: "linkedin.com/in/husseinmaatouk", href: "https://linkedin.com/in/husseinmaatouk", icon: "linkedin" }
+      { type: "LinkedIn", value: "linkedin.com/in/hussein-maatouk-0032a51a6", href: "https://www.linkedin.com/in/hussein-maatouk-0032a51a6/", icon: "linkedin" }
     ],
     languages: [
       { language: "Arabic", level: "Native" },
@@ -31,7 +30,7 @@ const profileData: PortfolioData = {
       { label: "GPA Honours", value: "Cum Laude" },
       { label: "Languages", value: 3 },
       { label: "Tree Records Explored", value: "5M+" },
-      { label: "Core Domains", value: "BI · Cloud · AI · Geospatial" }
+      { label: "Core Domains", value: "Cloud · Data Engineering · AI · Geospatial" }
     ]
   },
   experience: [

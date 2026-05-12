@@ -36,10 +36,10 @@ export default function Page() {
               <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Maatouk</span>
             </h1>
             <p className="text-lg md:text-xl font-medium text-slate-500 leading-relaxed max-w-lg">
-              Big Data &amp; Cloud Engineer &middot; BI Architect &middot; AI&nbsp;&amp;&nbsp;ML Practitioner
+              Cloud Data Engineer &middot; AI&nbsp;&amp;&nbsp;ML Practitioner
             </p>
             <p className="text-base text-slate-600 leading-relaxed max-w-lg">
-              Designing scalable data pipelines and intelligent analytics solutions that bridge raw data to real-world impact &mdash; from distributed cloud systems to interactive BI dashboards.
+              Designing scalable cloud data pipelines and reliable analytics foundations that bridge raw data to real-world impact &mdash; from distributed systems to production-ready data platforms.
             </p>
             <div className="flex flex-wrap gap-3 mt-2">
               <a
@@ -66,7 +66,7 @@ export default function Page() {
               <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border border-white/80">
                 <Image
                   src="/images/my_pic.jpeg"
-                  alt="Hussein Maatouk &mdash; Data Engineer and BI Architect"
+                  alt="Hussein Maatouk &mdash; Cloud Data Engineer"
                   fill
                   sizes="(max-width:768px) 320px, (max-width:1024px) 384px, 440px"
                   className="object-cover"
@@ -90,8 +90,8 @@ export default function Page() {
       >
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { value: "110/110", label: "MSc Cum Laude", sub: "University of Genoa" },
-            { value: "3+", label: "Years Experience", sub: "Cloud & BI Engineering" },
+            { value: "110/110", label: "MSc Cum Laude", sub: "University of Genoa · Based in Italy" },
+            { value: "3+", label: "Years Experience", sub: "Cloud Data Engineering" },
             { value: "5M+", label: "Data Records", sub: "Processed & Analysed" },
             { value: "3", label: "Languages", sub: "Arabic · English · Italian" },
           ].map((stat) => (
@@ -120,10 +120,10 @@ export default function Page() {
               <span className="text-indigo-600">strategic decisions</span>
             </h2>
             <p className="text-base text-slate-600 leading-relaxed">
-              I am a Big Data &amp; Cloud Engineer with hands-on expertise in designing end-to-end ELT pipelines, orchestrating distributed workflows, and delivering BI solutions that transform large-scale datasets into actionable intelligence. My academic background &mdash; an MSc in Data Science and AI with honours &mdash; underpins a rigorous, research-informed approach to engineering.
+              I am a Cloud Data Engineer with hands-on expertise in designing end-to-end ELT pipelines, orchestrating distributed workflows, and building reliable data platforms that transform large-scale datasets into actionable intelligence. My academic background &mdash; an MSc in Data Science and AI with honours &mdash; underpins a rigorous, research-informed approach to engineering.
             </p>
             <p className="text-base text-slate-600 leading-relaxed">
-              I thrive at the intersection of cloud infrastructure, machine learning, and business intelligence &mdash; building systems that are not only technically sound but genuinely useful to the people who depend on data every day.
+              I thrive at the intersection of cloud infrastructure, machine learning, and data engineering &mdash; building systems that are not only technically sound but genuinely useful to the people who depend on data every day.
             </p>
             <div className="flex flex-wrap gap-2 mt-2">
               {["Apache Kafka", "Apache Airflow", "dbt", "Dataform", "BigQuery", "GCP", "PySpark", "Tableau", "Python", "SQL"].map((tag) => (
@@ -145,9 +145,6 @@ export default function Page() {
                     <span className="mt-0.5 text-indigo-500">
                       {c.icon === "mail" && (
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
-                      )}
-                      {c.icon === "phone" && (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.22a16 16 0 0 0 6.84 6.84l1.59-1.85a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
                       )}
                       {c.icon === "map-pin" && (
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>
@@ -458,7 +455,7 @@ export default function Page() {
               Let&apos;s build something great together
             </h2>
             <p className="text-lg text-slate-400 max-w-xl leading-relaxed">
-              Open to new opportunities in data engineering, cloud architecture, and BI. Feel free to reach out directly.
+              Open to new opportunities in cloud data engineering and distributed data platforms. Feel free to reach out directly.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
@@ -473,9 +470,6 @@ export default function Page() {
                 <span className="text-indigo-400 group-hover:text-indigo-300 transition-colors shrink-0">
                   {c.icon === "mail" && (
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
-                  )}
-                  {c.icon === "phone" && (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.69h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.22a16 16 0 0 0 6.84 6.84l1.59-1.85a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
                   )}
                   {c.icon === "linkedin" && (
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>
@@ -493,7 +487,7 @@ export default function Page() {
 
       <footer className="bg-slate-950 py-8 text-center">
         <p className="text-xs text-slate-600">
-          &copy; {new Date().getFullYear()} Hussein Maatouk &mdash; Data Engineer &middot; BI Architect &middot; AI Practitioner
+          &copy; {new Date().getFullYear()} Hussein Maatouk &mdash; Cloud Data Engineer &middot; AI Practitioner
         </p>
       </footer>
     </main>

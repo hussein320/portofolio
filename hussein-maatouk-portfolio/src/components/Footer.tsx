@@ -2,13 +2,12 @@
 import Link from "next/link";
 import { navigationItems } from "@/data/navigation";
 import profileData from "@/data/profile";
-import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
+import { FiMail, FiMapPin } from "react-icons/fi";
 import { FaLinkedinIn } from "react-icons/fa";
 
 export default function Footer() {
   const { profile } = profileData;
   const email = profile.contact.find((c) => c.type === "Email");
-  const phone = profile.contact.find((c) => c.type === "Phone");
   const location = profile.contact.find((c) => c.type === "Location");
   const linkedin = profile.contact.find((c) => c.type === "LinkedIn");
   const year = new Date().getFullYear();
@@ -76,20 +75,6 @@ export default function Footer() {
                       <FiMail className="w-4 h-4" />
                     </span>
                     <span className="font-medium break-all">{email.value}</span>
-                  </a>
-                </li>
-              )}
-              {phone?.href && (
-                <li>
-                  <a
-                    href={phone.href}
-                    aria-label="Call phone number"
-                    className="group flex items-start gap-3 text-sm text-slate-600 hover:text-slate-900 transition-colors duration-200"
-                  >
-                    <span className="mt-0.5 flex-shrink-0 text-slate-400 group-hover:text-blue-500 transition-colors duration-200">
-                      <FiPhone className="w-4 h-4" />
-                    </span>
-                    <span className="font-medium">{phone.value}</span>
                   </a>
                 </li>
               )}
