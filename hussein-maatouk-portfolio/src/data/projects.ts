@@ -10,7 +10,7 @@ const projects: ProjectEntry[] = [
     links: [
       {
         label: "Live Project",
-        url: "https://diogosantos41.github.io/TechEUR_Insights/"
+        url: "https://hussein320.github.io/TechEUR_Insights/"
       }
     ],
     imageUrl: "/images/project-techeur-insights.png"

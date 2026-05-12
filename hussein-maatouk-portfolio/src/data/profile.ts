@@ -17,7 +17,7 @@ const profileData: PortfolioData = {
     avatarUrl: "/avatar.jpg",
     contact: [
       { type: "Email", value: "husseinmaatouk506@gmail.com", href: "mailto:husseinmaatouk506@gmail.com", icon: "mail" },
-      { type: "Location", value: "Lebanon", icon: "map-pin" },
+      { type: "Location", value: "Italy", icon: "map-pin" },
       { type: "Nationality", value: "Lebanese", icon: "flag" },
       { type: "LinkedIn", value: "linkedin.com/in/hussein-maatouk-0032a51a6", href: "https://www.linkedin.com/in/hussein-maatouk-0032a51a6/", icon: "linkedin" }
     ],
