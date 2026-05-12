@@ -25,7 +25,7 @@ export default function Footer() {
               <p className="mt-1 text-sm text-slate-500 font-medium">{profile.title}</p>
             </div>
             <p className="text-sm text-slate-500 leading-relaxed max-w-xs">
-              Turning complex data into clarity — one dashboard, one insight, one decision at a time.
+              Cloud data engineer passionate about AI and startups—building reliable pipelines and platforms that help ambitious teams scale.
             </p>
             {linkedin?.href && (
               <a

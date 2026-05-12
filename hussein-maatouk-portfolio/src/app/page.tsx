@@ -458,14 +458,16 @@ export default function Page() {
               Open to new opportunities in cloud data engineering and distributed data platforms. Feel free to reach out directly.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
-            {contact.filter((c) => c.href).map((c) => (
+          <div className="flex flex-wrap justify-center gap-4">
+            {contact
+              .filter((c) => c.icon === "mail" || c.icon === "linkedin")
+              .map((c) => (
               <Link
                 key={c.type}
                 href={c.href!}
                 target={c.href?.startsWith("http") ? "_blank" : undefined}
                 rel={c.href?.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left hover:bg-white/10 hover:border-indigo-400/40 transition-all duration-200"
+                className="group flex w-full max-w-xs flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 text-center hover:bg-white/10 hover:border-indigo-400/40 transition-all duration-200 sm:w-auto sm:min-w-[14rem]"
               >
                 <span className="text-indigo-400 group-hover:text-indigo-300 transition-colors shrink-0">
                   {c.icon === "mail" && (
@@ -475,9 +477,9 @@ export default function Page() {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>
                   )}
                 </span>
-                <div className="flex flex-col min-w-0">
+                <div className="flex flex-col items-center min-w-0">
                   <span className="text-xs font-medium text-slate-500 uppercase tracking-widest">{c.type}</span>
-                  <span className="text-sm font-semibold text-white truncate group-hover:text-indigo-300 transition-colors">{c.value}</span>
+                  <span className="text-sm font-semibold text-white group-hover:text-indigo-300 transition-colors">{c.value}</span>
                 </div>
               </Link>
             ))}
