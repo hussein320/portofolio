@@ -2,12 +2,157 @@ import Image from "next/image";
 import Link from "next/link";
 import SectionLabel from "@/components/SectionLabel";
 import TimelineItem from "@/components/TimelineItem";
-import InfoCard from "@/components/InfoCard";
 import { experience } from "@/data/experience";
 import { education } from "@/data/education";
 import projects from "@/data/projects";
 import { skillCategories, languages } from "@/data/skills";
 import profileData from "@/data/profile";
+import { cn } from "@/lib/utils";
+import type { ProjectEntry } from "@/types/profile";
+
+const heroParticles = [
+  "left-[8%] top-[22%] h-2 w-2 bg-indigo-400/50",
+  "left-[18%] top-[68%] h-1.5 w-1.5 bg-cyan-400/50",
+  "left-[48%] top-[18%] h-2.5 w-2.5 bg-violet-400/40",
+  "right-[18%] top-[30%] h-2 w-2 bg-indigo-300/50",
+  "right-[8%] bottom-[24%] h-1.5 w-1.5 bg-sky-400/50",
+  "left-[58%] bottom-[16%] h-2 w-2 bg-fuchsia-300/40",
+];
+
+const projectVisuals: Record<string, { label: string; metric: string; accent: string }> = {
+  "techeur-insights": {
+    label: "Interactive Market Signals",
+    metric: "5M+ Records",
+    accent: "from-indigo-500 to-cyan-400",
+  },
+  "jade-supply-chain": {
+    label: "Agent Coordination",
+    metric: "Multiagent Flow",
+    accent: "from-emerald-500 to-teal-400",
+  },
+  "sql-vs-pyspark": {
+    label: "Execution Benchmark",
+    metric: "SQL vs Spark",
+    accent: "from-amber-500 to-orange-400",
+  },
+  "rasa-chatbot-sql": {
+    label: "Natural Language Querying",
+    metric: "NL to SQL",
+    accent: "from-violet-500 to-fuchsia-400",
+  },
+  "image-captioning": {
+    label: "Vision Language Pipeline",
+    metric: "CNN + NLP",
+    accent: "from-sky-500 to-blue-500",
+  },
+};
+
+function ProjectVisual({ project, featured = false }: { project: ProjectEntry; featured?: boolean }) {
+  const visual = projectVisuals[project.id] ?? {
+    label: "Data Product Preview",
+    metric: "Pipeline",
+    accent: "from-indigo-500 to-violet-500",
+  };
+
+  const barHeights = featured ? ["42%", "68%", "54%", "82%", "62%", "90%", "72%"] : ["48%", "76%", "58%", "88%", "66%"];
+
+  return (
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-2xl border border-white/70 bg-slate-950 p-4 text-white shadow-inner",
+        featured ? "min-h-[15rem]" : "min-h-[9.5rem]"
+      )}
+    >
+      <div className={cn("absolute inset-x-0 top-0 h-1 bg-gradient-to-r", visual.accent)} />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(99,102,241,0.28),transparent_32%),radial-gradient(circle_at_80%_0%,rgba(34,211,238,0.2),transparent_30%)]" />
+      <div className="absolute inset-0 bg-grid opacity-20" />
+      <div className="relative flex h-full flex-col justify-between gap-5">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-slate-400">{visual.label}</p>
+            <p className={cn("mt-1 font-black tracking-tight text-white", featured ? "text-4xl" : "text-2xl")}>{visual.metric}</p>
+          </div>
+          <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/10 px-2.5 py-1 text-[0.65rem] font-semibold text-cyan-100">
+            <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 motion-safe:animate-pulse" />
+            Live
+          </div>
+        </div>
+        <div className="grid grid-cols-[1.1fr_0.9fr] gap-4">
+          <div className="flex h-24 items-end gap-2 rounded-xl border border-white/10 bg-white/[0.04] p-3">
+            {barHeights.map((height, index) => (
+              <span
+                key={`${project.id}-bar-${index}`}
+                className={cn("flex-1 rounded-t-md bg-gradient-to-t", visual.accent)}
+                style={{ height }}
+              />
+            ))}
+          </div>
+          <div className="relative rounded-xl border border-white/10 bg-white/[0.04] p-3">
+            <div className="absolute left-4 right-4 top-1/2 h-px bg-white/20" />
+            <div className="absolute bottom-4 left-1/2 top-4 w-px bg-white/20" />
+            {[
+              "left-3 top-3",
+              "right-4 top-6",
+              "left-6 bottom-4",
+              "right-3 bottom-3",
+            ].map((position, index) => (
+              <span
+                key={`${project.id}-node-${index}`}
+                className={cn("absolute h-3 w-3 rounded-full bg-gradient-to-br shadow-lg", visual.accent, position)}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProjectCard({ project, featured = false, compact = false }: { project: ProjectEntry; featured?: boolean; compact?: boolean }) {
+  return (
+    <article
+      className={cn(
+        "group flex h-full flex-col rounded-3xl border border-slate-200/80 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-100/60",
+        featured && "p-5 ring-2 ring-indigo-500/10",
+        compact && "md:flex-row md:items-stretch md:gap-5"
+      )}
+    >
+      <div className={cn(compact ? "md:w-2/5" : "w-full")}>
+        <ProjectVisual project={project} featured={featured} />
+      </div>
+      <div className={cn("flex flex-1 flex-col", featured ? "p-3 pt-6" : "p-2 pt-5", compact && "md:p-1")}>
+        <h3 className={cn("font-extrabold leading-tight tracking-tight text-slate-950", featured ? "text-2xl md:text-3xl" : "text-xl")}>
+          {project.title}
+        </h3>
+        <p className={cn("mt-3 leading-relaxed text-slate-500", featured ? "text-base" : "text-sm", compact && "truncate-3")}>
+          {project.description}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {project.tags.slice(0, featured ? 7 : 4).map((tag) => (
+            <span key={tag} className="rounded-full border border-indigo-100 bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">
+              {tag}
+            </span>
+          ))}
+        </div>
+        {project.links?.[0] && (
+          <div className="mt-5">
+            <Link
+              href={project.links[0].url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-4 py-2 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-indigo-700 hover:shadow-md"
+            >
+              {project.links[0].label}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </Link>
+          </div>
+        )}
+      </div>
+    </article>
+  );
+}
 
 export default function Page() {
   const volunteering = profileData.volunteering ?? [];
@@ -22,23 +167,28 @@ export default function Page() {
         className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-white to-indigo-50/40 pt-20 pb-40"
       >
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute top-32 right-32 w-[600px] h-[600px] rounded-full bg-indigo-100/40 blur-3xl" />
-          <div className="absolute bottom-0 left-20 w-[400px] h-[400px] rounded-full bg-violet-100/30 blur-3xl" />
+          <div className="absolute -top-32 right-12 h-[680px] w-[680px] rounded-full bg-indigo-200/35 blur-3xl motion-safe:animate-float-slow" />
+          <div className="absolute bottom-0 left-10 h-[480px] w-[480px] rounded-full bg-violet-200/35 blur-3xl motion-safe:animate-float" />
+          <div className="absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-100/40 blur-3xl motion-safe:animate-pulse-soft" />
+          <div className="absolute inset-0 bg-grid opacity-60" />
+          {heroParticles.map((particle) => (
+            <span key={particle} className={cn("absolute rounded-full shadow-[0_0_30px_currentColor] motion-safe:animate-float", particle)} />
+          ))}
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="flex flex-col gap-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-4 py-1.5 w-fit">
+            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white/70 px-4 py-1.5 w-fit shadow-sm backdrop-blur">
               <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
               <span className="text-xs font-semibold tracking-widest uppercase text-indigo-600">Available for opportunities</span>
             </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-none tracking-tight text-slate-900">
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-black leading-none tracking-tighter text-slate-950">
               Hussein<br />
               <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Maatouk</span>
             </h1>
-            <p className="text-lg md:text-xl font-medium text-slate-500 leading-relaxed max-w-lg">
+            <p className="text-xl md:text-2xl font-bold text-slate-600 leading-snug max-w-xl">
               Cloud Data Engineer &middot; AI&nbsp;&amp;&nbsp;ML Practitioner
             </p>
-            <p className="text-base text-slate-600 leading-relaxed max-w-lg">
+            <p className="text-lg text-slate-600 leading-relaxed max-w-xl">
               Designing scalable cloud data pipelines and reliable analytics foundations that bridge raw data to real-world impact &mdash; from distributed systems to production-ready data platforms.
             </p>
             <div className="flex flex-wrap gap-3 mt-2">
@@ -99,7 +249,7 @@ export default function Page() {
               key={stat.label}
               className="rounded-2xl border border-slate-100 bg-white px-5 py-5 shadow-lg shadow-slate-200/60 flex flex-col gap-1"
             >
-              <span className="text-3xl font-extrabold text-indigo-600 leading-none">{stat.value}</span>
+              <span className="text-4xl font-black text-indigo-600 leading-none tracking-tight">{stat.value}</span>
               <span className="text-sm font-bold text-slate-800 mt-1">{stat.label}</span>
               <span className="text-xs text-slate-400">{stat.sub}</span>
             </div>
@@ -115,7 +265,7 @@ export default function Page() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
           <div className="lg:col-span-3 flex flex-col gap-6">
             <SectionLabel text="Professional Profile" variant="accent" />
-            <h2 id="profile-heading" className="text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            <h2 id="profile-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950 leading-tight">
               Turning complex data into<br />
               <span className="text-indigo-600">strategic decisions</span>
             </h2>
@@ -182,7 +332,7 @@ export default function Page() {
         <div className="max-w-5xl mx-auto px-6 lg:px-12">
           <div className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Professional Experience" variant="accent" />
-            <h2 id="experience-heading" className="text-4xl font-extrabold tracking-tight text-slate-900">Where I have made an impact</h2>
+            <h2 id="experience-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950">Where I have made an impact</h2>
           </div>
           <div className="flex flex-col">
             {experience.map((exp, idx) => (
@@ -206,7 +356,7 @@ export default function Page() {
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <div className="flex flex-col gap-3 mb-12">
             <SectionLabel text="Thesis & Research" variant="accent" />
-            <h2 id="research-heading" className="text-4xl font-extrabold tracking-tight text-slate-900">Fairness-Aware Geospatial Research</h2>
+            <h2 id="research-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950">Fairness-Aware Geospatial Research</h2>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-indigo-100/60 aspect-[4/3]">
@@ -259,46 +409,22 @@ export default function Page() {
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <div className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Projects" variant="accent" />
-            <h2 id="projects-heading" className="text-4xl font-extrabold tracking-tight text-slate-900">Selected work &amp; builds</h2>
+            <h2 id="projects-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950">Selected work &amp; builds</h2>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
-              <InfoCard
-                title={featuredProject.title}
-                description={featuredProject.description}
-                tags={featuredProject.tags.slice(0, 6)}
-                link={featuredProject.links?.[0]}
-                imagePath="/images/project-techeur-insights.png"
-                imageAlt={featuredProject.title}
-                variant="featured"
-                className="h-full"
-              />
+              <ProjectCard project={featuredProject} featured />
             </div>
             <div className="flex flex-col gap-6">
               {otherProjects.slice(0, 2).map((project) => (
-                <InfoCard
-                  key={project.id}
-                  title={project.title}
-                  description={project.description}
-                  tags={project.tags.slice(0, 4)}
-                  link={project.links?.[0]}
-                  variant="standard"
-                  className="flex-1"
-                />
+                <ProjectCard key={project.id} project={project} />
               ))}
             </div>
           </div>
           {otherProjects.length > 2 && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
               {otherProjects.slice(2).map((project) => (
-                <InfoCard
-                  key={project.id}
-                  title={project.title}
-                  description={project.description}
-                  tags={project.tags.slice(0, 4)}
-                  link={project.links?.[0]}
-                  variant="compact"
-                />
+                <ProjectCard key={project.id} project={project} compact />
               ))}
             </div>
           )}
@@ -313,7 +439,7 @@ export default function Page() {
         <div className="max-w-5xl mx-auto px-6 lg:px-12">
           <div className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Education" variant="accent" />
-            <h2 id="education-heading" className="text-4xl font-extrabold tracking-tight text-slate-900">Academic foundation</h2>
+            <h2 id="education-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950">Academic foundation</h2>
           </div>
           <div className="flex flex-col">
             {education.map((edu, idx) => (
@@ -337,7 +463,7 @@ export default function Page() {
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <div className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Skills & Languages" variant="accent" />
-            <h2 id="skills-heading" className="text-4xl font-extrabold tracking-tight text-slate-900">Technical expertise</h2>
+            <h2 id="skills-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950">Technical expertise</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
             {skillCategories.map((cat) => (
@@ -398,7 +524,7 @@ export default function Page() {
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <div className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Volunteering" variant="accent" />
-            <h2 id="volunteering-heading" className="text-4xl font-extrabold tracking-tight text-slate-900">Giving back to the community</h2>
+            <h2 id="volunteering-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950">Giving back to the community</h2>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
             <div className="lg:col-span-2 relative rounded-3xl overflow-hidden shadow-xl aspect-[3/4]">
@@ -451,7 +577,7 @@ export default function Page() {
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center flex flex-col items-center gap-10">
           <div className="flex flex-col items-center gap-4">
             <SectionLabel text="Get In Touch" />
-            <h2 id="contact-heading" className="text-4xl md:text-5xl font-extrabold tracking-tight text-white">
+            <h2 id="contact-heading" className="text-4xl md:text-6xl font-black tracking-tight text-white">
               Let&apos;s build something great together
             </h2>
             <p className="text-lg text-slate-400 max-w-xl leading-relaxed">
