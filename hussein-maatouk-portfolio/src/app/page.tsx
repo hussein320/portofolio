@@ -64,7 +64,7 @@ function ProjectVisual({ project, featured = false }: { project: ProjectEntry; f
       )}
     >
       <div className={cn("absolute inset-x-0 top-0 h-1 bg-gradient-to-r", visual.accent)} />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(99,102,241,0.28),transparent_32%),radial-gradient(circle_at_80%_0%,rgba(34,211,238,0.2),transparent_30%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(37,99,235,0.28),transparent_32%),radial-gradient(circle_at_80%_0%,rgba(34,211,238,0.2),transparent_30%)]" />
       <div className="absolute inset-0 bg-grid opacity-20" />
       <div className="relative flex h-full flex-col justify-between gap-5">
         <div className="flex items-start justify-between gap-4">

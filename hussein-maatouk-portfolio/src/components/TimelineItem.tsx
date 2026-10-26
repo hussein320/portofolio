@@ -101,12 +101,13 @@ export default function TimelineItem(props: TimelineItemProps) {
         >
           <span className="h-1.5 w-1.5 rounded-full bg-indigo-400 group-hover:bg-indigo-600 transition-colors duration-300" />
         </div>
-        {!isLast && (
-          <div
-            className="flex-1 w-px bg-gradient-to-b from-indigo-300 via-indigo-100 to-transparent mt-1"
-            aria-hidden="true"
-          />
-        )}
+        <div
+          className={cn(
+            "flex-1 w-px mt-1 bg-gradient-to-b",
+            isLast ? "from-indigo-300 to-transparent" : "from-indigo-300 via-indigo-100 to-transparent"
+          )}
+          aria-hidden="true"
+        />
       </div>
 
       <div

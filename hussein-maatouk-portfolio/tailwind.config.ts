@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import colors from 'tailwindcss/colors'
 
 const config: Config = {
   content: [
@@ -13,6 +14,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Purple-free palette: indigo/violet/purple/fuchsia utilities render as blue/sky
+        indigo:  colors.blue,
+        violet:  colors.sky,
+        purple:  colors.sky,
+        fuchsia: colors.cyan,
         primary: {
           50:  '#f0f4ff',
           100: '#e0eaff',
@@ -27,17 +33,17 @@ const config: Config = {
           950: '#131f53',
         },
         secondary: {
-          50:  '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
-          950: '#2e1065',
+          50:  '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0284c7',
+          700: '#0369a1',
+          800: '#075985',
+          900: '#0c4a6e',
+          950: '#082f49',
         },
         accent: {
           50:  '#fff7ed',
@@ -78,7 +84,7 @@ const config: Config = {
         },
         ring: {
           DEFAULT: '#3d6cf5',
-          secondary:'#8b5cf6',
+          secondary:'#0ea5e9',
           accent:  '#f97316',
         },
         success: {
@@ -103,14 +109,14 @@ const config: Config = {
         display: ['var(--font-display)', 'Inter', 'ui-sans-serif', 'sans-serif'],
       },
       backgroundImage: {
-        'gradient-hero':       'linear-gradient(135deg, #f0f4ff 0%, #f5f3ff 50%, #fff7ed 100%)',
-        'gradient-primary':    'linear-gradient(135deg, #3d6cf5 0%, #8b5cf6 100%)',
+        'gradient-hero':       'linear-gradient(135deg, #f0f4ff 0%, #f0f9ff 50%, #fff7ed 100%)',
+        'gradient-primary':    'linear-gradient(135deg, #3d6cf5 0%, #0ea5e9 100%)',
         'gradient-soft':       'linear-gradient(180deg, #f8f9fc 0%, #f1f4f9 100%)',
         'gradient-card':       'linear-gradient(145deg, #ffffff 0%, #f4f6fb 100%)',
-        'gradient-accent':     'linear-gradient(135deg, #8b5cf6 0%, #f97316 100%)',
+        'gradient-accent':     'linear-gradient(135deg, #0ea5e9 0%, #f97316 100%)',
         'gradient-surface':    'linear-gradient(180deg, #fafbfe 0%, #f1f4f9 100%)',
         'gradient-radial-soft':'radial-gradient(ellipse at top, #e0eaff 0%, #f8f9fc 60%)',
-        'gradient-mesh':       'radial-gradient(at 40% 20%, #e0eaff 0px, transparent 50%), radial-gradient(at 80% 0%, #ede9fe 0px, transparent 50%), radial-gradient(at 0% 50%, #fff7ed 0px, transparent 50%)',
+        'gradient-mesh':       'radial-gradient(at 40% 20%, #e0eaff 0px, transparent 50%), radial-gradient(at 80% 0%, #e0f2fe 0px, transparent 50%), radial-gradient(at 0% 50%, #fff7ed 0px, transparent 50%)',
         'noise':               'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.03\'/%3E%3C/svg%3E")',
       },
       boxShadow: {
@@ -119,12 +125,12 @@ const config: Config = {
         'card-lg':    '0 8px 24px 0 rgba(15,22,35,0.10), 0 32px 64px 0 rgba(15,22,35,0.10)',
         'primary':    '0 4px 14px 0 rgba(61,108,245,0.30)',
         'primary-lg': '0 8px 28px 0 rgba(61,108,245,0.40)',
-        'secondary':  '0 4px 14px 0 rgba(139,92,246,0.28)',
+        'secondary':  '0 4px 14px 0 rgba(14,165,233,0.28)',
         'accent':     '0 4px 14px 0 rgba(249,115,22,0.28)',
         'soft':       '0 2px 8px 0 rgba(15,22,35,0.05), 0 1px 2px 0 rgba(15,22,35,0.04)',
         'inner-soft': 'inset 0 1px 3px 0 rgba(15,22,35,0.06)',
         'glow-primary':   '0 0 20px rgba(61,108,245,0.20), 0 0 40px rgba(61,108,245,0.10)',
-        'glow-secondary': '0 0 20px rgba(139,92,246,0.20), 0 0 40px rgba(139,92,246,0.10)',
+        'glow-secondary': '0 0 20px rgba(14,165,233,0.20), 0 0 40px rgba(14,165,233,0.10)',
       },
       borderRadius: {
         'xs':  '0.25rem',
