@@ -215,7 +215,7 @@ export default function Page() {
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-tl from-indigo-100 to-sky-100 -rotate-2 opacity-40" />
               <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border border-white/80">
                 <Image
-                  src="/images/my_pic.jpeg"
+                  src="/images/my_pic.png"
                   alt="Hussein Maatouk &mdash; Cloud Data Engineer"
                   fill
                   sizes="(max-width:768px) 320px, (max-width:1024px) 384px, 440px"
@@ -243,7 +243,7 @@ export default function Page() {
             { value: "110/110", label: "MSc Cum Laude", sub: "University of Genoa · Based in Italy" },
             { value: "3+", label: "Years Experience", sub: "Cloud Data Engineering" },
             { value: "5M+", label: "Data Records", sub: "Processed & Analysed" },
-            { value: "3", label: "Languages", sub: "Arabic · English · Italian" },
+            { value: "5", label: "Languages", sub: "Arabic · English · Italian · French · German" },
           ].map((stat) => (
             <div
               key={stat.label}
@@ -487,7 +487,7 @@ export default function Page() {
           </div>
           <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50/60 to-violet-50/40 p-8">
             <h3 className="text-sm font-bold uppercase tracking-widest text-indigo-500 mb-6">Languages</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-6">
               {languages.map((lang) => (
                 <div key={lang.language} className="flex flex-col gap-1.5">
                   <div className="flex items-center justify-between">

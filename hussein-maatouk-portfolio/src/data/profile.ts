@@ -24,11 +24,12 @@ const profileData: PortfolioData = {
     languages: [
       { language: "Arabic", level: "Native" },
       { language: "English", level: "Professional Proficiency" },
-      { language: "French", level: "Intermediate" }
+      { language: "French", level: "Intermediate" },
+      { language: "German", level: "Intermediate" }
     ],
     stats: [
       { label: "GPA Honours", value: "Cum Laude" },
-      { label: "Languages", value: 3 },
+      { label: "Languages", value: 5 },
       { label: "Tree Records Explored", value: "5M+" },
       { label: "Core Domains", value: "Cloud · Data Engineering · AI · Geospatial" }
     ]
