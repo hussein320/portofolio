@@ -31,7 +31,7 @@ const snapshotStats: SnapshotStat[] = [
   {
     value: "MSc",
     label: "Data Science & Artificial Intelligence",
-    sub: "University of Genoa",
+    sub: "University of Genoa, Italy",
     Icon: HiAcademicCap,
     accent: {
       border: "from-amber-400/80 via-amber-400/10 to-orange-500/40",
