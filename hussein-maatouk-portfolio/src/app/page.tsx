@@ -20,6 +20,11 @@ const heroParticles = [
 ];
 
 const projectVisuals: Record<string, { label: string; metric: string; accent: string }> = {
+  "deutsch-master": {
+    label: "German A1 Academy",
+    metric: "29 Lessons · 4 Languages",
+    accent: "from-amber-400 to-red-500",
+  },
   "techeur-insights": {
     label: "Interactive Market Signals",
     metric: "5M+ Records",
@@ -222,11 +227,6 @@ export default function Page() {
                   className="object-cover"
                   priority
                 />
-              </div>
-              <div className="absolute -bottom-4 -right-4 rounded-2xl border border-indigo-100 bg-white px-4 py-3 shadow-xl">
-                <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400">MSc Grade</p>
-                <p className="text-2xl font-extrabold text-slate-900">110<span className="text-indigo-500">/110</span></p>
-                <p className="text-xs text-slate-500 font-medium">Cum Laude</p>
               </div>
             </div>
           </div>
@@ -493,7 +493,7 @@ export default function Page() {
                   <div className="flex items-center justify-between">
                     <span className="text-base font-bold text-slate-900">{lang.language}</span>
                   </div>
-                  <span className="text-sm text-slate-500">{lang.level}</span>
+                  <span className="flex-1 text-sm text-slate-500">{lang.level}</span>
                   <div className="h-1.5 w-full rounded-full bg-slate-200 overflow-hidden">
                     <div
                       className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-500"

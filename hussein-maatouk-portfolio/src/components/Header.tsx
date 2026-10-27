@@ -56,7 +56,7 @@ export default function Header() {
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out",
           scrolled
             ? "bg-white/90 backdrop-blur-lg border-b border-slate-200/80 shadow-sm py-3"
-            : "bg-transparent py-5"
+            : "bg-transparent py-5 -translate-y-full opacity-0 pointer-events-none"
         )}
       >
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">

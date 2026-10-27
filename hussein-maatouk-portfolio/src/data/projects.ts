@@ -2,11 +2,24 @@ import type { ProjectEntry } from "@/types/profile";
 
 const projects: ProjectEntry[] = [
   {
+    id: "deutsch-master",
+    title: "Deutsch Master — German Language Academy",
+    description: "A free, structured German A1 course for learners who speak English, German, Italian or Arabic (with full right-to-left support). Includes 29 lessons, around 1,380 words with example sentences, a Grammar Lab covering 33 topics, interactive exercises, conversation challenges, spaced-repetition review and unit tests. Built as a static web app on Vercel with a Supabase backend handling authentication, vocabulary storage and progress sync across devices. A database trigger merges and backs up progress so it is never lost. German audio is generated once with Google Cloud Text-to-Speech through a Supabase Edge Function and cached, and automated Playwright tests run on every push.",
+    tags: ["JavaScript","Supabase","PostgreSQL","Vercel","Edge Functions","Google Cloud TTS","Playwright","i18n","EdTech"],
+    featured: true,
+    links: [
+      {
+        label: "Live Project",
+        url: "https://thedeutschmaster.com/"
+      }
+    ]
+  },
+  {
     id: "techeur-insights",
     title: "TechEUR_Insights",
     description: "An end-to-end data engineering and visualization project exploring European tech industry trends. Involved exploratory data analysis and data cleaning in Python, data transformation pipelines, REST API integration, and JSON dataset creation. Implemented a fully interactive web application using HTML, CSS, and JavaScript featuring custom SVG visualizations including bar charts, stacked bar charts, heatmaps, Sankey diagrams, line charts, and scatter plots. Incorporates a PowerBI dashboard for executive-level reporting. Built on the 5-million-trees open dataset context to benchmark environmental impact alongside workforce metrics.",
     tags: ["Python","JavaScript","HTML","CSS","SVG","REST API","JSON","PowerBI","Data Analysis","Data Cleaning","EDA","Data Visualization"],
-    featured: true,
+    featured: false,
     links: [
       {
         label: "Live Project",
