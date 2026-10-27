@@ -10,18 +10,79 @@ import profileData from "@/data/profile";
 import { cn } from "@/lib/utils";
 import type { ProjectEntry } from "@/types/profile";
 import type { IconType } from "react-icons";
-import { HiAcademicCap, HiBriefcase, HiCode, HiTranslate } from "react-icons/hi";
+import { HiBriefcase, HiChip, HiCode, HiTranslate } from "react-icons/hi";
 
 const careerStart = new Date("2023-04-01");
 const yearsOfExperience = Math.floor((Date.now() - careerStart.getTime()) / (365.25 * 24 * 3600 * 1000));
 
 const liveProjects = projects.filter((p) => p.links?.length).length;
 
-const snapshotStats: { value: string; label: string; sub?: string; Icon: IconType; chips?: string[] }[] = [
-  { value: "110/110", label: "MSc Data Science & AI", sub: "Cum Laude · University of Genoa", Icon: HiAcademicCap },
-  { value: `${yearsOfExperience}+`, label: "Years in Data Engineering", sub: "Cloud pipelines, BI & analytics", Icon: HiBriefcase },
-  { value: String(projects.length), label: "Data & AI Projects", sub: `Pipelines, ML & web apps · ${liveProjects} live`, Icon: HiCode },
-  { value: String(languages.length), label: "Languages Spoken", Icon: HiTranslate, chips: languages.map((l) => l.language) },
+const techStack = Array.from(
+  new Set(skillCategories.filter((c) => c.id !== "soft-skills").flatMap((c) => c.skills.map((sk) => sk.name)))
+);
+
+type SnapshotStat = {
+  value: string;
+  label: string;
+  sub?: string;
+  Icon: IconType;
+  chips?: string[];
+  accent: { border: string; icon: string; number: string; glow: string; watermark: string };
+};
+
+const snapshotStats: SnapshotStat[] = [
+  {
+    value: `${yearsOfExperience}+`,
+    label: "Years in Data Engineering",
+    sub: "Cloud pipelines, BI & analytics",
+    Icon: HiBriefcase,
+    accent: {
+      border: "from-sky-400/80 via-sky-400/10 to-blue-500/40",
+      icon: "bg-sky-100 text-sky-600 dark:bg-sky-400/10 dark:text-sky-300",
+      number: "from-sky-500 to-blue-700 dark:from-sky-200 dark:to-blue-400",
+      glow: "hover:shadow-sky-500/25",
+      watermark: "text-sky-500",
+    },
+  },
+  {
+    value: String(projects.length),
+    label: "Data & AI Projects",
+    sub: `Pipelines, ML & web apps · ${liveProjects} live`,
+    Icon: HiCode,
+    accent: {
+      border: "from-emerald-400/80 via-emerald-400/10 to-teal-500/40",
+      icon: "bg-emerald-100 text-emerald-600 dark:bg-emerald-400/10 dark:text-emerald-300",
+      number: "from-emerald-500 to-teal-700 dark:from-emerald-200 dark:to-teal-400",
+      glow: "hover:shadow-emerald-500/25",
+      watermark: "text-emerald-500",
+    },
+  },
+  {
+    value: `${techStack.length}+`,
+    label: "Cloud, Data & AI Skills",
+    sub: "GCP · BigQuery · Airflow · dbt · Kafka · PySpark",
+    Icon: HiChip,
+    accent: {
+      border: "from-amber-400/80 via-amber-400/10 to-orange-500/40",
+      icon: "bg-amber-100 text-amber-600 dark:bg-amber-400/10 dark:text-amber-300",
+      number: "from-amber-500 to-orange-600 dark:from-amber-200 dark:to-orange-400",
+      glow: "hover:shadow-amber-500/25",
+      watermark: "text-amber-500",
+    },
+  },
+  {
+    value: String(languages.length),
+    label: "Languages Spoken",
+    Icon: HiTranslate,
+    chips: languages.map((l) => l.language),
+    accent: {
+      border: "from-cyan-400/80 via-cyan-400/10 to-sky-500/40",
+      icon: "bg-cyan-100 text-cyan-600 dark:bg-cyan-400/10 dark:text-cyan-300",
+      number: "from-cyan-500 to-sky-700 dark:from-cyan-200 dark:to-sky-400",
+      glow: "hover:shadow-cyan-500/25",
+      watermark: "text-cyan-500",
+    },
+  },
 ];
 
 const heroParticles = [
@@ -344,23 +405,37 @@ export default function Page() {
         className="relative z-20 -mt-24 max-w-6xl mx-auto px-6 lg:px-12"
         aria-label="Career snapshot"
       >
-        <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/80 shadow-2xl shadow-slate-300/40 backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70 dark:shadow-black/40">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/70 to-transparent" aria-hidden="true" />
-          <div className="grid grid-cols-2 lg:grid-cols-4 [&>*]:border-slate-200/80 dark:[&>*]:border-white/10 [&>*:nth-child(odd)]:border-r [&>*:nth-child(-n+2)]:border-b lg:[&>*]:border-b-0 lg:[&>*]:border-r lg:[&>*:last-child]:border-r-0">
-            {snapshotStats.map(({ value, label, sub, Icon, chips }) => (
-              <div key={label} className="group relative flex flex-col gap-3 p-5 md:p-7 transition-colors duration-300 hover:bg-sky-50/60 dark:hover:bg-white/[0.03]">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-100 text-sky-600 transition-transform duration-300 group-hover:scale-110 dark:bg-sky-400/10 dark:text-sky-300">
+        <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4 lg:items-start">
+          {snapshotStats.map(({ value, label, sub, Icon, chips, accent }, idx) => (
+            <div
+              key={label}
+              className={cn(
+                "group relative rounded-3xl bg-gradient-to-br p-px shadow-xl shadow-slate-300/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl dark:shadow-black/40",
+                accent.border,
+                accent.glow,
+                idx % 2 === 1 && "lg:mt-10"
+              )}
+            >
+              <div className="relative flex h-full flex-col gap-4 overflow-hidden rounded-[calc(1.5rem-1px)] bg-white/95 p-4 sm:p-6 backdrop-blur-xl dark:bg-slate-900/95">
+                <Icon
+                  className={cn(
+                    "pointer-events-none absolute -bottom-6 -right-6 h-32 w-32 rotate-12 opacity-[0.07] transition-all duration-500 group-hover:rotate-0 group-hover:opacity-[0.14]",
+                    accent.watermark
+                  )}
+                  aria-hidden="true"
+                />
+                <span className={cn("flex h-10 w-10 items-center justify-center rounded-2xl transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6", accent.icon)}>
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
-                <span className="bg-gradient-to-br from-slate-900 to-blue-600 bg-clip-text text-4xl md:text-5xl font-black leading-none tracking-tight text-transparent dark:from-white dark:to-sky-300">
+                <span className={cn("bg-gradient-to-br bg-clip-text text-4xl sm:text-5xl font-black leading-none tracking-tight text-transparent", accent.number)}>
                   {value}
                 </span>
-                <div className="flex flex-col gap-1">
+                <div className="relative flex flex-col gap-1">
                   <span className="text-sm font-bold text-slate-900 dark:text-white">{label}</span>
                   {sub && <span className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">{sub}</span>}
                 </div>
                 {chips && (
-                  <ul className="flex flex-wrap gap-1" aria-label="Languages">
+                  <ul className="relative flex flex-wrap gap-1" aria-label="Languages">
                     {chips.map((chip) => (
                       <li key={chip} className="rounded-md border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[0.7rem] font-medium text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
                         {chip}
@@ -369,8 +444,8 @@ export default function Page() {
                   </ul>
                 )}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
 
