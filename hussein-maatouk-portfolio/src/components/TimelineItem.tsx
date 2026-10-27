@@ -96,7 +96,7 @@ export default function TimelineItem(props: TimelineItemProps) {
 
       <div className="relative flex flex-col items-center">
         <div
-          className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full border-2 border-indigo-400 bg-white shadow-md mt-1.5 transition-all duration-300 group-hover:scale-125 group-hover:border-indigo-600 group-hover:shadow-lg group-hover:shadow-indigo-200"
+          className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full border-2 border-indigo-400 bg-white dark:bg-slate-900 shadow-md mt-1.5 transition-all duration-300 group-hover:scale-125 group-hover:border-indigo-600 group-hover:shadow-lg group-hover:shadow-indigo-200"
           aria-hidden="true"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-indigo-400 group-hover:bg-indigo-600 transition-colors duration-300" />
@@ -104,7 +104,7 @@ export default function TimelineItem(props: TimelineItemProps) {
         <div
           className={cn(
             "flex-1 w-px mt-1 bg-gradient-to-b",
-            isLast ? "from-indigo-300 to-transparent" : "from-indigo-300 via-indigo-100 to-transparent"
+            isLast ? "from-indigo-300 to-transparent" : "from-indigo-300 via-indigo-100 dark:via-indigo-900 to-transparent"
           )}
           aria-hidden="true"
         />
@@ -125,32 +125,32 @@ export default function TimelineItem(props: TimelineItemProps) {
 
         <div
           className={cn(
-            "rounded-2xl border border-slate-100 bg-white p-5 md:p-6 shadow-sm",
+            "rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 md:p-6 shadow-sm",
             "transition-all duration-300 ease-out",
-            "group-hover:shadow-lg group-hover:shadow-slate-200/60 group-hover:-translate-y-0.5"
+            "group-hover:shadow-lg group-hover:shadow-slate-200/60 dark:group-hover:shadow-none group-hover:-translate-y-0.5"
           )}
         >
-          <h3 className="text-base font-bold text-slate-900 leading-snug mb-0.5">
+          <h3 className="text-base font-bold text-slate-900 dark:text-white leading-snug mb-0.5">
             {title}
           </h3>
 
           <div
             className={cn(
-              "flex flex-wrap gap-x-3 gap-y-0.5 text-sm text-slate-500 mb-3",
+              "flex flex-wrap gap-x-3 gap-y-0.5 text-sm text-slate-500 dark:text-slate-400 mb-3",
               isRight ? "md:justify-end" : "justify-start"
             )}
           >
-            <span className="font-medium text-slate-700">{organization}</span>
+            <span className="font-medium text-slate-700 dark:text-slate-200">{organization}</span>
             {location && (
               <>
-                <span className="text-slate-300" aria-hidden="true">·</span>
+                <span className="text-slate-300 dark:text-slate-600" aria-hidden="true">·</span>
                 <span>{location}</span>
               </>
             )}
           </div>
 
           {description && (
-            <p className="text-sm text-slate-600 leading-relaxed mb-3">
+            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-3">
               {description}
             </p>
           )}
@@ -164,7 +164,7 @@ export default function TimelineItem(props: TimelineItemProps) {
                 <li
                   key={`bullet-${idx}-${bullet.slice(0, 12)}`}
                   className={cn(
-                    "flex items-start gap-2 text-sm text-slate-600 leading-relaxed",
+                    "flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed",
                     isRight ? "md:flex-row-reverse" : ""
                   )}
                 >
@@ -189,7 +189,7 @@ export default function TimelineItem(props: TimelineItemProps) {
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center rounded-full border border-indigo-100 bg-indigo-50 px-2.5 py-0.5 text-xs font-medium text-indigo-700 transition-colors duration-200 hover:bg-indigo-100"
+                  className="inline-flex items-center rounded-full border border-indigo-100 dark:border-indigo-400/20 bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-0.5 text-xs font-medium text-indigo-700 dark:text-indigo-300 transition-colors duration-200 hover:bg-indigo-100 dark:hover:bg-indigo-500/20"
                 >
                   {tag}
                 </span>
