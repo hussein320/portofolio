@@ -26,6 +26,7 @@ type ProjectMeta = {
   accent: string;
   screenshot?: string;
   aspect?: string;
+  enlarge?: string;
   file?: string;
   code?: CodeLine[];
 };
@@ -36,6 +37,7 @@ const projectMeta: Record<string, ProjectMeta> = {
     accent: "from-amber-400 via-rose-500 to-sky-500",
     screenshot: "/images/project-deutsch-master.png",
     aspect: "aspect-[9/4]",
+    enlarge: "lg:-ml-28 xl:-ml-36",
   },
   "techeur-insights": {
     category: "Data visualisation · Web",
@@ -158,7 +160,7 @@ function ProjectShowcase({ project, index }: { project: ProjectEntry; index: num
 
   return (
     <article className="group grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
-      <div className={cn("relative lg:col-span-7", flipped && "lg:order-2")}>
+      <div className={cn("relative lg:col-span-7", flipped && "lg:order-2", meta.enlarge)}>
         <div
           className={cn(
             "absolute -inset-4 rounded-[2rem] bg-gradient-to-br opacity-20 blur-3xl transition-opacity duration-500 group-hover:opacity-40 dark:opacity-25 dark:group-hover:opacity-45",
