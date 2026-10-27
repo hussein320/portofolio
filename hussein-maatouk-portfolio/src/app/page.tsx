@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SectionLabel from "@/components/SectionLabel";
 import TimelineItem from "@/components/TimelineItem";
+import HeroSpotlight from "@/components/HeroSpotlight";
 import { experience } from "@/data/experience";
 import { education } from "@/data/education";
 import projects from "@/data/projects";
@@ -10,16 +11,12 @@ import profileData from "@/data/profile";
 import { cn } from "@/lib/utils";
 import type { ProjectEntry } from "@/types/profile";
 import type { IconType } from "react-icons";
-import { HiBriefcase, HiChip, HiCode, HiTranslate } from "react-icons/hi";
+import { HiAcademicCap, HiBriefcase, HiCode, HiTranslate } from "react-icons/hi";
 
 const careerStart = new Date("2023-04-01");
 const yearsOfExperience = Math.floor((Date.now() - careerStart.getTime()) / (365.25 * 24 * 3600 * 1000));
 
 const liveProjects = projects.filter((p) => p.links?.length).length;
-
-const techStack = Array.from(
-  new Set(skillCategories.filter((c) => c.id !== "soft-skills").flatMap((c) => c.skills.map((sk) => sk.name)))
-);
 
 type SnapshotStat = {
   value: string;
@@ -31,6 +28,19 @@ type SnapshotStat = {
 };
 
 const snapshotStats: SnapshotStat[] = [
+  {
+    value: "MSc",
+    label: "Data Science & Artificial Intelligence",
+    sub: "University of Genoa",
+    Icon: HiAcademicCap,
+    accent: {
+      border: "from-amber-400/80 via-amber-400/10 to-orange-500/40",
+      icon: "bg-amber-100 text-amber-600 dark:bg-amber-400/10 dark:text-amber-300",
+      number: "from-amber-500 to-orange-600 dark:from-amber-200 dark:to-orange-400",
+      glow: "hover:shadow-amber-500/25",
+      watermark: "text-amber-500",
+    },
+  },
   {
     value: `${yearsOfExperience}+`,
     label: "Years in Data Engineering",
@@ -58,19 +68,6 @@ const snapshotStats: SnapshotStat[] = [
     },
   },
   {
-    value: `${techStack.length}+`,
-    label: "Cloud, Data & AI Skills",
-    sub: "GCP · BigQuery · Airflow · dbt · Kafka · PySpark",
-    Icon: HiChip,
-    accent: {
-      border: "from-amber-400/80 via-amber-400/10 to-orange-500/40",
-      icon: "bg-amber-100 text-amber-600 dark:bg-amber-400/10 dark:text-amber-300",
-      number: "from-amber-500 to-orange-600 dark:from-amber-200 dark:to-orange-400",
-      glow: "hover:shadow-amber-500/25",
-      watermark: "text-amber-500",
-    },
-  },
-  {
     value: String(languages.length),
     label: "Languages Spoken",
     Icon: HiTranslate,
@@ -83,15 +80,6 @@ const snapshotStats: SnapshotStat[] = [
       watermark: "text-cyan-500",
     },
   },
-];
-
-const heroParticles = [
-  "left-[8%] top-[22%] h-2 w-2 bg-indigo-400/50",
-  "left-[18%] top-[68%] h-1.5 w-1.5 bg-cyan-400/50",
-  "left-[48%] top-[18%] h-2.5 w-2.5 bg-violet-400/40",
-  "right-[18%] top-[30%] h-2 w-2 bg-indigo-300/50",
-  "right-[8%] bottom-[24%] h-1.5 w-1.5 bg-sky-400/50",
-  "left-[58%] bottom-[16%] h-2 w-2 bg-fuchsia-300/40",
 ];
 
 type CodeLine = { text: string; kind?: "comment" | "keyword" | "string" | "output" };
@@ -343,10 +331,8 @@ export default function Page() {
           <div className="absolute bottom-0 left-10 h-[480px] w-[480px] rounded-full bg-violet-200/35 dark:bg-violet-500/10 blur-3xl motion-safe:animate-float" />
           <div className="absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-100/40 dark:bg-cyan-500/10 blur-3xl motion-safe:animate-pulse-soft" />
           <div className="absolute inset-0 bg-grid opacity-60" />
-          {heroParticles.map((particle) => (
-            <span key={particle} className={cn("absolute rounded-full shadow-[0_0_30px_currentColor] motion-safe:animate-float", particle)} />
-          ))}
         </div>
+        <HeroSpotlight />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="flex flex-col gap-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 dark:border-indigo-400/30 bg-white/70 dark:bg-slate-900/70 px-4 py-1.5 w-fit shadow-sm backdrop-blur">
