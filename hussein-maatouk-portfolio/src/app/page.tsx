@@ -25,6 +25,7 @@ type ProjectMeta = {
   category: string;
   accent: string;
   screenshot?: string;
+  aspect?: string;
   file?: string;
   code?: CodeLine[];
 };
@@ -34,6 +35,7 @@ const projectMeta: Record<string, ProjectMeta> = {
     category: "EdTech · Full-stack web app",
     accent: "from-amber-400 via-rose-500 to-sky-500",
     screenshot: "/images/project-deutsch-master.png",
+    aspect: "aspect-[9/4]",
   },
   "techeur-insights": {
     category: "Data visualisation · Web",
@@ -173,7 +175,7 @@ function ProjectShowcase({ project, index }: { project: ProjectEntry; index: num
               </span>
             )}
           </div>
-          <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+          <div className={cn("relative overflow-hidden bg-slate-100", meta.aspect ?? "aspect-[16/10]")}>
             <Image
               src={meta.screenshot!}
               alt={`${project.title} — screenshot`}
