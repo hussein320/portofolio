@@ -9,6 +9,20 @@ import { skillCategories, languages } from "@/data/skills";
 import profileData from "@/data/profile";
 import { cn } from "@/lib/utils";
 import type { ProjectEntry } from "@/types/profile";
+import type { IconType } from "react-icons";
+import { HiAcademicCap, HiBriefcase, HiCode, HiTranslate } from "react-icons/hi";
+
+const careerStart = new Date("2023-04-01");
+const yearsOfExperience = Math.floor((Date.now() - careerStart.getTime()) / (365.25 * 24 * 3600 * 1000));
+
+const liveProjects = projects.filter((p) => p.links?.length).length;
+
+const snapshotStats: { value: string; label: string; sub?: string; Icon: IconType; chips?: string[] }[] = [
+  { value: "110/110", label: "MSc Data Science & AI", sub: "Cum Laude · University of Genoa", Icon: HiAcademicCap },
+  { value: `${yearsOfExperience}+`, label: "Years in Data Engineering", sub: "Cloud pipelines, BI & analytics", Icon: HiBriefcase },
+  { value: String(projects.length), label: "Data & AI Projects", sub: `Pipelines, ML & web apps · ${liveProjects} live`, Icon: HiCode },
+  { value: String(languages.length), label: "Languages Spoken", Icon: HiTranslate, chips: languages.map((l) => l.language) },
+];
 
 const heroParticles = [
   "left-[8%] top-[22%] h-2 w-2 bg-indigo-400/50",
@@ -330,22 +344,33 @@ export default function Page() {
         className="relative z-20 -mt-24 max-w-6xl mx-auto px-6 lg:px-12"
         aria-label="Career snapshot"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { value: "110/110", label: "MSc Cum Laude", sub: "University of Genoa · Based in Italy" },
-            { value: "3+", label: "Years Experience", sub: "Cloud Data Engineering" },
-            { value: "5M+", label: "Data Records", sub: "Processed & Analysed" },
-            { value: "5", label: "Languages", sub: "Arabic · English · Italian · French · German" },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 px-5 py-5 shadow-lg shadow-slate-200/60 dark:shadow-none flex flex-col gap-1"
-            >
-              <span className="text-4xl font-black text-indigo-600 dark:text-indigo-400 leading-none tracking-tight">{stat.value}</span>
-              <span className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-1">{stat.label}</span>
-              <span className="text-xs text-slate-400 dark:text-slate-500">{stat.sub}</span>
-            </div>
-          ))}
+        <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/80 shadow-2xl shadow-slate-300/40 backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70 dark:shadow-black/40">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/70 to-transparent" aria-hidden="true" />
+          <div className="grid grid-cols-2 lg:grid-cols-4 [&>*]:border-slate-200/80 dark:[&>*]:border-white/10 [&>*:nth-child(odd)]:border-r [&>*:nth-child(-n+2)]:border-b lg:[&>*]:border-b-0 lg:[&>*]:border-r lg:[&>*:last-child]:border-r-0">
+            {snapshotStats.map(({ value, label, sub, Icon, chips }) => (
+              <div key={label} className="group relative flex flex-col gap-3 p-5 md:p-7 transition-colors duration-300 hover:bg-sky-50/60 dark:hover:bg-white/[0.03]">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-100 text-sky-600 transition-transform duration-300 group-hover:scale-110 dark:bg-sky-400/10 dark:text-sky-300">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <span className="bg-gradient-to-br from-slate-900 to-blue-600 bg-clip-text text-4xl md:text-5xl font-black leading-none tracking-tight text-transparent dark:from-white dark:to-sky-300">
+                  {value}
+                </span>
+                <div className="flex flex-col gap-1">
+                  <span className="text-sm font-bold text-slate-900 dark:text-white">{label}</span>
+                  {sub && <span className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">{sub}</span>}
+                </div>
+                {chips && (
+                  <ul className="flex flex-wrap gap-1" aria-label="Languages">
+                    {chips.map((chip) => (
+                      <li key={chip} className="rounded-md border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[0.7rem] font-medium text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+                        {chip}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
