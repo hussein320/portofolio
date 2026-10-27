@@ -19,142 +19,228 @@ const heroParticles = [
   "left-[58%] bottom-[16%] h-2 w-2 bg-fuchsia-300/40",
 ];
 
-const projectVisuals: Record<string, { label: string; metric: string; accent: string }> = {
+type CodeLine = { text: string; kind?: "comment" | "keyword" | "string" | "output" };
+
+type ProjectMeta = {
+  category: string;
+  accent: string;
+  screenshot?: string;
+  file?: string;
+  code?: CodeLine[];
+};
+
+const projectMeta: Record<string, ProjectMeta> = {
   "deutsch-master": {
-    label: "German A1 Academy",
-    metric: "29 Lessons · 4 Languages",
-    accent: "from-amber-400 to-red-500",
+    category: "EdTech · Full-stack web app",
+    accent: "from-amber-400 via-rose-500 to-sky-500",
+    screenshot: "/images/project-deutsch-master.png",
   },
   "techeur-insights": {
-    label: "Interactive Market Signals",
-    metric: "5M+ Records",
-    accent: "from-indigo-500 to-cyan-400",
+    category: "Data visualisation · Web",
+    accent: "from-sky-400 to-blue-600",
+    screenshot: "/images/project-techeur-live.png",
   },
   "jade-supply-chain": {
-    label: "Agent Coordination",
-    metric: "Multiagent Flow",
-    accent: "from-emerald-500 to-teal-400",
+    category: "Multiagent systems",
+    accent: "from-emerald-400 to-teal-500",
+    file: "SupplierAgent.java",
+    code: [
+      { text: "// agents negotiate stock on their own", kind: "comment" },
+      { text: "ACLMessage cfp = new ACLMessage(ACLMessage.CFP);", kind: "keyword" },
+      { text: 'cfp.addReceiver(new AID("warehouse-2", AID.ISLOCALNAME));' },
+      { text: 'cfp.setContent("order:qty=120;deadline=48h");', kind: "string" },
+      { text: "send(cfp);  // → PROPOSE | REFUSE", kind: "output" },
+    ],
   },
   "sql-vs-pyspark": {
-    label: "Execution Benchmark",
-    metric: "SQL vs Spark",
-    accent: "from-amber-500 to-orange-400",
+    category: "Big data · Benchmark",
+    accent: "from-amber-400 to-orange-500",
+    file: "benchmark.py",
+    code: [
+      { text: "-- SQL", kind: "comment" },
+      { text: "SELECT region, AVG(sales) FROM orders GROUP BY region;", kind: "keyword" },
+      { text: "# PySpark", kind: "comment" },
+      { text: 'df.groupBy("region").agg(F.avg("sales"))', kind: "string" },
+      { text: "# same result → compare plans, readability, scale", kind: "output" },
+    ],
   },
   "rasa-chatbot-sql": {
-    label: "Natural Language Querying",
-    metric: "NL to SQL",
-    accent: "from-violet-500 to-fuchsia-400",
+    category: "Conversational AI",
+    accent: "from-cyan-400 to-sky-500",
+    file: "nl_to_sql.yml",
+    code: [
+      { text: 'user: "show customers from Milan"', kind: "string" },
+      { text: "intent: query_table", kind: "keyword" },
+      { text: "entities: { table: customers, city: Milan }" },
+      { text: "# generated query", kind: "comment" },
+      { text: "SELECT * FROM customers WHERE city = 'Milan';", kind: "output" },
+    ],
   },
   "image-captioning": {
-    label: "Vision Language Pipeline",
-    metric: "CNN + NLP",
-    accent: "from-sky-500 to-blue-500",
+    category: "Deep learning · Research",
+    accent: "from-sky-400 to-indigo-500",
+    file: "caption.py",
+    code: [
+      { text: "features = cnn_encoder(image)", kind: "keyword" },
+      { text: "caption = lstm_decoder(features, attention=True)" },
+      { text: ">>> \"a dog running along the beach\"", kind: "string" },
+      { text: "# scored with BLEU and METEOR", kind: "comment" },
+    ],
   },
 };
 
-function ProjectVisual({ project, featured = false }: { project: ProjectEntry; featured?: boolean }) {
-  const visual = projectVisuals[project.id] ?? {
-    label: "Data Product Preview",
-    metric: "Pipeline",
-    accent: "from-indigo-500 to-violet-500",
-  };
+const codeColors: Record<NonNullable<CodeLine["kind"]> | "plain", string> = {
+  comment: "text-slate-500",
+  keyword: "text-sky-300",
+  string: "text-emerald-300",
+  output: "text-amber-200",
+  plain: "text-slate-200",
+};
 
-  const barHeights = featured ? ["42%", "68%", "54%", "82%", "62%", "90%", "72%"] : ["48%", "76%", "58%", "88%", "66%"];
+function hostname(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
+}
 
+function WindowDots() {
   return (
-    <div
-      className={cn(
-        "relative overflow-hidden rounded-2xl border border-white/70 bg-slate-950 p-4 text-white shadow-inner",
-        featured ? "min-h-[15rem]" : "min-h-[9.5rem]"
-      )}
-    >
-      <div className={cn("absolute inset-x-0 top-0 h-1 bg-gradient-to-r", visual.accent)} />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(37,99,235,0.28),transparent_32%),radial-gradient(circle_at_80%_0%,rgba(34,211,238,0.2),transparent_30%)]" />
-      <div className="absolute inset-0 bg-grid opacity-20" />
-      <div className="relative flex h-full flex-col justify-between gap-5">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-slate-400">{visual.label}</p>
-            <p className={cn("mt-1 font-black tracking-tight text-white", featured ? "text-4xl" : "text-2xl")}>{visual.metric}</p>
-          </div>
-          <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/10 px-2.5 py-1 text-[0.65rem] font-semibold text-cyan-100">
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan-300 motion-safe:animate-pulse" />
-            Live
-          </div>
-        </div>
-        <div className="grid grid-cols-[1.1fr_0.9fr] gap-4">
-          <div className="flex h-24 items-end gap-2 rounded-xl border border-white/10 bg-white/[0.04] p-3">
-            {barHeights.map((height, index) => (
-              <span
-                key={`${project.id}-bar-${index}`}
-                className={cn("flex-1 rounded-t-md bg-gradient-to-t", visual.accent)}
-                style={{ height }}
-              />
-            ))}
-          </div>
-          <div className="relative rounded-xl border border-white/10 bg-white/[0.04] p-3">
-            <div className="absolute left-4 right-4 top-1/2 h-px bg-white/20" />
-            <div className="absolute bottom-4 left-1/2 top-4 w-px bg-white/20" />
-            {[
-              "left-3 top-3",
-              "right-4 top-6",
-              "left-6 bottom-4",
-              "right-3 bottom-3",
-            ].map((position, index) => (
-              <span
-                key={`${project.id}-node-${index}`}
-                className={cn("absolute h-3 w-3 rounded-full bg-gradient-to-br shadow-lg", visual.accent, position)}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+    <div className="flex gap-1.5" aria-hidden="true">
+      <span className="h-2.5 w-2.5 rounded-full bg-rose-400/80" />
+      <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+      <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
     </div>
   );
 }
 
-function ProjectCard({ project, featured = false, compact = false }: { project: ProjectEntry; featured?: boolean; compact?: boolean }) {
+function ProjectLinkButton({ project }: { project: ProjectEntry }) {
+  const link = project.links?.[0];
+  if (!link) return null;
   return (
-    <article
-      className={cn(
-        "group flex h-full flex-col rounded-3xl border border-slate-200/80 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-100/60",
-        featured && "p-5 ring-2 ring-indigo-500/10",
-        compact && "md:flex-row md:items-stretch md:gap-5"
-      )}
+    <Link
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group/link inline-flex items-center gap-3 rounded-full bg-white py-2 pl-5 pr-2 text-sm font-bold text-slate-950 transition-all duration-200 hover:bg-sky-100"
     >
-      <div className={cn(compact ? "md:w-2/5" : "w-full")}>
-        <ProjectVisual project={project} featured={featured} />
-      </div>
-      <div className={cn("flex flex-1 flex-col", featured ? "p-3 pt-6" : "p-2 pt-5", compact && "md:p-1")}>
-        <h3 className={cn("font-extrabold leading-tight tracking-tight text-slate-950", featured ? "text-2xl md:text-3xl" : "text-xl")}>
-          {project.title}
-        </h3>
-        <p className={cn("mt-3 leading-relaxed text-slate-500", featured ? "text-base" : "text-sm", compact && "truncate-3")}>
-          {project.description}
-        </p>
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {project.tags.slice(0, featured ? 7 : 4).map((tag) => (
-            <span key={tag} className="rounded-full border border-indigo-100 bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">
-              {tag}
-            </span>
-          ))}
-        </div>
-        {project.links?.[0] && (
-          <div className="mt-5">
-            <Link
-              href={project.links[0].url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-4 py-2 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-indigo-700 hover:shadow-md"
-            >
-              {project.links[0].label}
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </Link>
+      Visit {hostname(link.url)}
+      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-950 text-white transition-transform duration-300 group-hover/link:rotate-[-45deg]">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+        </svg>
+      </span>
+    </Link>
+  );
+}
+
+function ProjectNumber({ index, className }: { index: number; className?: string }) {
+  return (
+    <span
+      className={cn("font-black leading-none text-transparent select-none", className)}
+      style={{ WebkitTextStroke: "1px rgba(148, 163, 184, 0.45)" }}
+      aria-hidden="true"
+    >
+      {String(index + 1).padStart(2, "0")}
+    </span>
+  );
+}
+
+function ProjectShowcase({ project, index }: { project: ProjectEntry; index: number }) {
+  const meta = projectMeta[project.id];
+  const flipped = index % 2 === 1;
+  const link = project.links?.[0];
+
+  return (
+    <article className="group grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+      <div className={cn("relative lg:col-span-7", flipped && "lg:order-2")}>
+        <div
+          className={cn(
+            "absolute -inset-4 rounded-[2rem] bg-gradient-to-br opacity-25 blur-3xl transition-opacity duration-500 group-hover:opacity-45",
+            meta.accent
+          )}
+          aria-hidden="true"
+        />
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900 shadow-2xl transition-transform duration-500 group-hover:-translate-y-1.5">
+          <div className="flex items-center gap-4 border-b border-white/10 bg-slate-900/90 px-4 py-3">
+            <WindowDots />
+            {link && (
+              <span className="flex-1 truncate rounded-md bg-white/5 px-3 py-1 text-center font-mono text-[0.7rem] text-slate-400">
+                {hostname(link.url)}
+              </span>
+            )}
           </div>
-        )}
+          <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+            <Image
+              src={meta.screenshot!}
+              alt={`${project.title} — screenshot`}
+              fill
+              sizes="(max-width:1024px) 100vw, 640px"
+              className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+            />
+          </div>
+        </div>
       </div>
+
+      <div className={cn("lg:col-span-5", flipped && "lg:order-1")}>
+        <div className="flex items-end gap-4">
+          <ProjectNumber index={index} className="text-6xl md:text-7xl" />
+          <span className={cn("mb-2 h-px flex-1 bg-gradient-to-r opacity-60", meta.accent)} aria-hidden="true" />
+        </div>
+        <p className="mt-6 font-mono text-xs uppercase tracking-[0.2em] text-sky-300">{meta.category}</p>
+        <h3 className="mt-3 text-3xl font-black leading-tight tracking-tight text-white md:text-4xl">{project.title}</h3>
+        <p className="mt-5 text-base leading-relaxed text-slate-400">{project.description}</p>
+        <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technologies">
+          {project.tags.slice(0, 8).map((tag) => (
+            <li key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300">
+              {tag}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8">
+          <ProjectLinkButton project={project} />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function ProjectTerminalCard({ project, index }: { project: ProjectEntry; index: number }) {
+  const meta = projectMeta[project.id] ?? { category: "Project", accent: "from-sky-400 to-blue-600" };
+
+  return (
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06]">
+      <div className={cn("absolute inset-x-0 top-0 h-px bg-gradient-to-r opacity-70", meta.accent)} aria-hidden="true" />
+      {meta.code && (
+        <div className="overflow-hidden rounded-xl border border-white/10 bg-slate-950/80">
+          <div className="flex items-center gap-3 border-b border-white/10 px-4 py-2.5">
+            <WindowDots />
+            <span className="font-mono text-[0.7rem] text-slate-500">{meta.file}</span>
+          </div>
+          <pre className="overflow-x-auto px-4 py-4 font-mono text-[0.72rem] leading-relaxed" aria-hidden="true">
+            {meta.code.map((line, i) => (
+              <div key={`${project.id}-code-${i}`} className="flex gap-4">
+                <span className="w-3 shrink-0 text-right text-slate-600">{i + 1}</span>
+                <span className={codeColors[line.kind ?? "plain"]}>{line.text}</span>
+              </div>
+            ))}
+          </pre>
+        </div>
+      )}
+      <div className="mt-6 flex items-start justify-between gap-4">
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-sky-300">{meta.category}</p>
+        <ProjectNumber index={index} className="text-4xl" />
+      </div>
+      <h3 className="mt-2 text-xl font-extrabold leading-snug tracking-tight text-white">{project.title}</h3>
+      <p className="mt-3 truncate-3 text-sm leading-relaxed text-slate-400">{project.description}</p>
+      <ul className="mt-auto flex flex-wrap gap-1.5 pt-5" aria-label="Technologies">
+        {project.tags.slice(0, 4).map((tag) => (
+          <li key={tag} className="rounded-full border border-white/10 px-2.5 py-0.5 font-mono text-[0.7rem] text-slate-400">
+            {tag}
+          </li>
+        ))}
+      </ul>
     </article>
   );
 }
@@ -162,8 +248,8 @@ function ProjectCard({ project, featured = false, compact = false }: { project: 
 export default function Page() {
   const volunteering = profileData.volunteering ?? [];
   const contact = profileData.profile.contact;
-  const featuredProject = projects.find((p) => p.featured) ?? projects[0];
-  const otherProjects = projects.filter((p) => p.id !== featuredProject.id);
+  const showcaseProjects = projects.filter((p) => projectMeta[p.id]?.screenshot);
+  const otherProjects = projects.filter((p) => !projectMeta[p.id]?.screenshot);
 
   return (
     <main className="bg-white text-slate-900 antialiased overflow-x-hidden">
@@ -403,30 +489,48 @@ export default function Page() {
 
       <section
         id="projects"
-        className="bg-slate-50/60 py-24"
+        className="relative overflow-hidden bg-slate-950 py-28 text-white"
         aria-labelledby="projects-heading"
       >
-        <div className="max-w-6xl mx-auto px-6 lg:px-12">
-          <div className="flex flex-col gap-3 mb-14">
-            <SectionLabel text="Projects" variant="accent" />
-            <h2 id="projects-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950">Selected work &amp; builds</h2>
+        <div className="absolute inset-0 bg-grid opacity-[0.15]" aria-hidden="true" />
+        <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-sky-500/20 blur-3xl" aria-hidden="true" />
+        <div className="absolute -right-40 bottom-40 h-[28rem] w-[28rem] rounded-full bg-blue-600/20 blur-3xl" aria-hidden="true" />
+
+        <div className="relative max-w-6xl mx-auto px-6 lg:px-12">
+          <div className="mb-20 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.3em] text-sky-300">
+                <span className="h-px w-10 bg-sky-300/60" aria-hidden="true" />
+                Projects
+              </p>
+              <h2 id="projects-heading" className="mt-5 text-5xl font-black tracking-tight text-white md:text-7xl">
+                Things I&apos;ve{" "}
+                <span className="bg-gradient-to-r from-sky-300 via-blue-400 to-cyan-300 bg-clip-text text-transparent">built</span>
+              </h2>
+            </div>
+            <p className="max-w-sm text-base leading-relaxed text-slate-400">
+              From a live language academy to research on distributed agents and deep learning: {projects.length} projects, built end to end.
+            </p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2">
-              <ProjectCard project={featuredProject} featured />
-            </div>
-            <div className="flex flex-col gap-6">
-              {otherProjects.slice(0, 2).map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
+
+          <div className="flex flex-col gap-28">
+            {showcaseProjects.map((project, idx) => (
+              <ProjectShowcase key={project.id} project={project} index={idx} />
+            ))}
           </div>
-          {otherProjects.length > 2 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              {otherProjects.slice(2).map((project) => (
-                <ProjectCard key={project.id} project={project} compact />
-              ))}
-            </div>
+
+          {otherProjects.length > 0 && (
+            <>
+              <div className="mb-10 mt-28 flex items-center gap-4">
+                <h3 className="font-mono text-xs uppercase tracking-[0.3em] text-slate-400">More builds &amp; research</h3>
+                <span className="h-px flex-1 bg-white/10" aria-hidden="true" />
+              </div>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                {otherProjects.map((project, idx) => (
+                  <ProjectTerminalCard key={project.id} project={project} index={showcaseProjects.length + idx} />
+                ))}
+              </div>
+            </>
           )}
         </div>
       </section>
