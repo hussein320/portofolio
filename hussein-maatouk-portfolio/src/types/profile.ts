@@ -34,14 +34,28 @@ export type ExperienceBullet = {
   text: string;
 };
 
+export type ExperienceRole = {
+  title: string;
+  employmentType?: string;
+  startDate: string;
+  endDate: string | null;
+  summary?: string;
+  bullets: ExperienceBullet[];
+};
+
 export type ExperienceEntry = {
   id: string;
   company: string;
   role: string;
+  employmentType?: string;
   startDate: string;
   endDate: string | null;
   location?: string;
+  workMode?: string;
+  summary?: string;
   bullets: ExperienceBullet[];
+  // Earlier positions held at the same company, most recent first.
+  previousRoles?: ExperienceRole[];
   tags: string[];
 };
 

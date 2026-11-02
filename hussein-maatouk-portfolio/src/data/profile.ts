@@ -24,8 +24,8 @@ const profileData: PortfolioData = {
     languages: [
       { language: "Arabic", level: "Native" },
       { language: "English", level: "Professional Proficiency" },
-      { language: "French", level: "Intermediate" },
-      { language: "German", level: "Intermediate" }
+      { language: "French", level: "Beginner" },
+      { language: "German", level: "Beginner" }
     ],
     stats: [
       { label: "GPA Honours", value: "Cum Laude" },

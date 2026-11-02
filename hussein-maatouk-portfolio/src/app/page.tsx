@@ -3,6 +3,7 @@ import Link from "next/link";
 import SectionLabel from "@/components/SectionLabel";
 import TimelineItem from "@/components/TimelineItem";
 import HeroSpotlight from "@/components/HeroSpotlight";
+import ExperienceCard, { CareerAxis } from "@/components/ExperienceCard";
 import { experience } from "@/data/experience";
 import { education } from "@/data/education";
 import projects from "@/data/projects";
@@ -13,7 +14,7 @@ import type { ProjectEntry } from "@/types/profile";
 import type { IconType } from "react-icons";
 import { HiAcademicCap, HiBriefcase, HiCode, HiTranslate } from "react-icons/hi";
 
-const careerStart = new Date("2023-04-01");
+const careerStart = new Date("2024-04-01");
 const yearsOfExperience = Math.floor((Date.now() - careerStart.getTime()) / (365.25 * 24 * 3600 * 1000));
 
 const liveProjects = projects.filter((p) => p.links?.length).length;
@@ -512,15 +513,10 @@ export default function Page() {
             <SectionLabel text="Professional Experience" variant="accent" />
             <h2 id="experience-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950 dark:text-white">Where I have made an impact</h2>
           </div>
-          <div className="flex flex-col">
+          <CareerAxis entries={experience} />
+          <div className="flex flex-col gap-6">
             {experience.map((exp, idx) => (
-              <TimelineItem
-                key={exp.id}
-                variant="experience"
-                data={exp}
-                align={idx % 2 === 0 ? "left" : "right"}
-                isLast={idx === experience.length - 1}
-              />
+              <ExperienceCard key={exp.id} data={exp} index={idx} />
             ))}
           </div>
         </div>
