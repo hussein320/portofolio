@@ -46,6 +46,8 @@ export type ExperienceRole = {
 export type ExperienceEntry = {
   id: string;
   company: string;
+  // Square logo under /public, shown in a small tile.
+  logo?: string;
   role: string;
   employmentType?: string;
   startDate: string;

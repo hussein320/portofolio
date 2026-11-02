@@ -4,6 +4,7 @@ export const experience: ExperienceEntry[] = [
   {
     id: "horsa-big-data-cloud",
     company: "Horsa",
+    logo: "/images/logos/horsa-insight.png",
     role: "Big Data & Cloud Engineer",
     employmentType: "Full-time",
     startDate: "2025-11",
@@ -25,6 +26,7 @@ export const experience: ExperienceEntry[] = [
   {
     id: "visualitics-data-platform",
     company: "Visualitics",
+    logo: "/images/logos/visualitics.png",
     role: "Data Platform Engineer – Tableau",
     employmentType: "Full-time",
     startDate: "2025-04",
@@ -52,6 +54,7 @@ export const experience: ExperienceEntry[] = [
   {
     id: "unige-master-thesis",
     company: "University of Genoa",
+    logo: "/images/logos/unige.png",
     role: "Data Science Researcher – Geospatial Data & ML",
     employmentType: "Full-time",
     startDate: "2024-04",

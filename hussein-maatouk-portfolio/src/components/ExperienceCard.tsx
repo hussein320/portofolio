@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import OutlineNumber from "@/components/OutlineNumber";
 import type { ExperienceEntry, ExperienceRole } from "@/types/profile";
@@ -70,6 +71,40 @@ function companyStart(entry: ExperienceEntry): string {
   return roles[roles.length - 1].startDate;
 }
 
+// Company logo tile, falling back to initials on the accent gradient when no logo is set.
+function CompanyMark({ entry, fallback, className }: { entry: ExperienceEntry; fallback: string; className?: string }) {
+  if (entry.logo) {
+    return (
+      <span
+        className={cn(
+          "relative shrink-0 overflow-hidden bg-white ring-1 ring-slate-200 dark:ring-white/10",
+          className
+        )}
+      >
+        <Image src={entry.logo} alt={`${entry.company} logo`} fill sizes="48px" className="object-cover" />
+      </span>
+    );
+  }
+  const initials = entry.company
+    .split(/\s+/)
+    .filter((word) => /^[A-Z]/.test(word))
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join("");
+  return (
+    <span
+      className={cn(
+        "flex shrink-0 items-center justify-center bg-gradient-to-br font-bold tracking-wide text-white",
+        fallback,
+        className
+      )}
+      aria-hidden="true"
+    >
+      {initials}
+    </span>
+  );
+}
+
 export function CareerAxis({ entries }: { entries: ExperienceEntry[] }) {
   const spans = entries.map((entry) => ({
     entry,
@@ -127,8 +162,9 @@ export function CareerAxis({ entries }: { entries: ExperienceEntry[] }) {
           const accent = accents[i % accents.length];
           return (
             <React.Fragment key={entry.id}>
-              <span className="truncate text-xs font-semibold text-slate-600 dark:text-slate-300 md:self-center md:text-right">
-                {entry.company}
+              <span className="flex min-w-0 items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300 md:justify-end md:self-center">
+                <CompanyMark entry={entry} fallback={accent.bar} className="h-5 w-5 rounded text-[9px]" />
+                <span className="truncate">{entry.company}</span>
               </span>
               <div className="relative h-3 rounded-full bg-slate-100 dark:bg-slate-800/70 -mt-2 md:mt-0">
                 {yearLines}
@@ -177,12 +213,6 @@ export default function ExperienceCard({ data, index, className }: ExperienceCar
   const start = companyStart(data);
   const isCurrent = data.endDate === null;
   const meta = [data.location, data.workMode].filter(Boolean).join(" · ");
-  const initials = data.company
-    .split(/\s+/)
-    .filter((word) => /^[A-Z]/.test(word))
-    .slice(0, 2)
-    .map((word) => word[0])
-    .join("");
 
   return (
     <article
@@ -203,15 +233,11 @@ export default function ExperienceCard({ data, index, className }: ExperienceCar
 
         <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-center gap-4">
-            <div
-              className={cn(
-                "flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-sm font-bold tracking-wide text-white shadow-md transition-transform duration-300 group-hover:scale-105",
-                accent.bar
-              )}
-              aria-hidden="true"
-            >
-              {initials}
-            </div>
+            <CompanyMark
+              entry={data}
+              fallback={accent.bar}
+              className="h-10 w-10 rounded-lg text-sm shadow-md transition-transform duration-300 group-hover:scale-105"
+            />
             <div>
               <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{data.company}</h3>
               {meta && <p className="text-sm text-slate-500 dark:text-slate-400">{meta}</p>}
