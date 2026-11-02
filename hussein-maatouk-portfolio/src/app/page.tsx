@@ -323,7 +323,7 @@ export default function Page() {
   const otherProjects = projects.filter((p) => !projectMeta[p.id]?.screenshot);
 
   return (
-    <main className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white antialiased overflow-x-hidden">
+    <main className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white antialiased overflow-x-clip">
       <MotionObserver />
       <section
         id="hero"
@@ -442,8 +442,8 @@ export default function Page() {
         className="max-w-6xl mx-auto px-6 lg:px-12 py-24"
         aria-labelledby="profile-heading"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
-          <div className="lg:col-span-3 flex flex-col gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+          <div data-reveal="up" className="lg:col-span-3 flex flex-col gap-6">
             <SectionLabel text="Professional Profile" variant="accent" />
             <h2 id="profile-heading" className={cn(sectionHeading, "leading-tight")}>
               Turning complex data into<br />
@@ -466,39 +466,42 @@ export default function Page() {
               ))}
             </div>
           </div>
-          <div className="lg:col-span-2 flex flex-col gap-4">
-            <div className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-6 flex flex-col gap-5">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Contact Details</h3>
-              <ul className="flex flex-col gap-3">
-                {contact.map((c) => (
-                  <li key={c.type} className="flex items-start gap-3">
-                    <span className="mt-0.5 text-sky-500">
-                      {c.icon === "mail" && (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
-                      )}
-                      {c.icon === "map-pin" && (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>
-                      )}
-                      {c.icon === "flag" && (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" x2="4" y1="22" y2="15" /></svg>
-                      )}
-                      {c.icon === "linkedin" && (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>
-                      )}
-                    </span>
-                    <div className="flex flex-col">
-                      <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">{c.type}</span>
-                      {c.href ? (
-                        <Link href={c.href} className="text-sm text-slate-700 dark:text-slate-200 font-medium hover:text-sky-600 dark:hover:text-sky-400 transition-colors">
-                          {c.value}
-                        </Link>
-                      ) : (
-                        <span className="text-sm text-slate-700 dark:text-slate-200 font-medium">{c.value}</span>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
+          <div className="lg:col-span-2">
+            {/* Starts at the top of the section, then stays pinned below the header until the section ends. */}
+            <div className="flex flex-col gap-4 lg:sticky lg:top-24">
+              <div data-reveal="up" style={revealDelay(150)} className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 p-6 flex flex-col gap-5">
+                <h3 className="text-sm font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Contact Details</h3>
+                <ul className="flex flex-col gap-3">
+                  {contact.map((c) => (
+                    <li key={c.type} className="flex items-start gap-3">
+                      <span className="mt-0.5 text-sky-500">
+                        {c.icon === "mail" && (
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+                        )}
+                        {c.icon === "map-pin" && (
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>
+                        )}
+                        {c.icon === "flag" && (
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" x2="4" y1="22" y2="15" /></svg>
+                        )}
+                        {c.icon === "linkedin" && (
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>
+                        )}
+                      </span>
+                      <div className="flex flex-col">
+                        <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">{c.type}</span>
+                        {c.href ? (
+                          <Link href={c.href} className="text-sm text-slate-700 dark:text-slate-200 font-medium hover:text-sky-600 dark:hover:text-sky-400 transition-colors">
+                            {c.value}
+                          </Link>
+                        ) : (
+                          <span className="text-sm text-slate-700 dark:text-slate-200 font-medium">{c.value}</span>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
