@@ -3,7 +3,7 @@ import type { ExperienceEntry } from "@/types/profile";
 export const experience: ExperienceEntry[] = [
   {
     id: "horsa-big-data-cloud",
-    company: "Horsa",
+    company: "Horsa Insight",
     logo: "/images/logos/horsa-insight.png",
     role: "Big Data & Cloud Engineer",
     employmentType: "Full-time",

@@ -144,7 +144,7 @@ export function CareerAxis({ entries }: { entries: ExperienceEntry[] }) {
         </span>
       </figcaption>
 
-      <div className="grid grid-cols-1 gap-y-3 md:grid-cols-[9rem_1fr] md:gap-x-4">
+      <div className="grid grid-cols-1 gap-y-3 md:grid-cols-[11rem_1fr] md:gap-x-5">
         <div className="hidden md:block" />
         <div className="relative h-4">
           {years.map((year) => (
@@ -162,7 +162,7 @@ export function CareerAxis({ entries }: { entries: ExperienceEntry[] }) {
           const accent = accents[i % accents.length];
           return (
             <React.Fragment key={entry.id}>
-              <span className="flex min-w-0 items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300 md:justify-end md:self-center">
+              <span className="flex min-w-0 items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300 md:self-center">
                 <CompanyMark entry={entry} fallback={accent.bar} className="h-5 w-5 rounded text-[9px]" />
                 <span className="truncate">{entry.company}</span>
               </span>
