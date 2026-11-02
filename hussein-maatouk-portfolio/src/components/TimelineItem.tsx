@@ -88,7 +88,7 @@ export default function TimelineItem(props: TimelineItemProps) {
       >
         <time
           dateTime={startDate}
-          className="text-xs font-semibold tracking-widest uppercase text-indigo-500 whitespace-nowrap"
+          className="font-mono text-xs tabular-nums text-sky-600 dark:text-sky-300 whitespace-nowrap"
         >
           {dateRange}
         </time>
@@ -96,15 +96,15 @@ export default function TimelineItem(props: TimelineItemProps) {
 
       <div className="relative flex flex-col items-center">
         <div
-          className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full border-2 border-indigo-400 bg-white dark:bg-slate-900 shadow-md mt-1.5 transition-all duration-300 group-hover:scale-125 group-hover:border-indigo-600 group-hover:shadow-lg group-hover:shadow-indigo-200"
+          className="relative z-10 flex h-4 w-4 items-center justify-center rounded-full border-2 border-sky-400 bg-white dark:bg-slate-900 shadow-md mt-1.5 transition-all duration-300 group-hover:scale-125 group-hover:border-sky-600 group-hover:shadow-lg group-hover:shadow-sky-200"
           aria-hidden="true"
         >
-          <span className="h-1.5 w-1.5 rounded-full bg-indigo-400 group-hover:bg-indigo-600 transition-colors duration-300" />
+          <span className="h-1.5 w-1.5 rounded-full bg-sky-400 group-hover:bg-sky-600 transition-colors duration-300" />
         </div>
         <div
           className={cn(
             "flex-1 w-px mt-1 bg-gradient-to-b",
-            isLast ? "from-indigo-300 to-transparent" : "from-indigo-300 via-indigo-100 dark:via-indigo-900 to-transparent"
+            isLast ? "from-sky-300 to-transparent" : "from-sky-300 via-sky-100 dark:via-sky-900 to-transparent"
           )}
           aria-hidden="true"
         />
@@ -118,7 +118,7 @@ export default function TimelineItem(props: TimelineItemProps) {
       >
         <time
           dateTime={startDate}
-          className="md:hidden block text-xs font-semibold tracking-widest uppercase text-indigo-500 mb-2"
+          className="md:hidden block font-mono text-xs tabular-nums text-sky-600 dark:text-sky-300 mb-2"
         >
           {dateRange}
         </time>
@@ -169,7 +169,7 @@ export default function TimelineItem(props: TimelineItemProps) {
                   )}
                 >
                   <span
-                    className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-indigo-400"
+                    className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-sky-400"
                     aria-hidden="true"
                   />
                   <span>{bullet}</span>
@@ -189,7 +189,7 @@ export default function TimelineItem(props: TimelineItemProps) {
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center rounded-full border border-indigo-100 dark:border-indigo-400/20 bg-indigo-50 dark:bg-indigo-500/10 px-2.5 py-0.5 text-xs font-medium text-indigo-700 dark:text-indigo-300 transition-colors duration-200 hover:bg-indigo-100 dark:hover:bg-indigo-500/20"
+                  className="inline-flex items-center rounded-full border border-sky-100 dark:border-sky-400/20 bg-sky-50 dark:bg-sky-500/10 px-2.5 py-0.5 text-xs font-medium text-sky-700 dark:text-sky-300 transition-colors duration-200 hover:bg-sky-100 dark:hover:bg-sky-500/20"
                 >
                   {tag}
                 </span>

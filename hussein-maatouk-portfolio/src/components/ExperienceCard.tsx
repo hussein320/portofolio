@@ -1,27 +1,26 @@
 import React from "react";
 import { cn } from "@/lib/utils";
+import OutlineNumber from "@/components/OutlineNumber";
 import type { ExperienceEntry, ExperienceRole } from "@/types/profile";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const accents = [
   {
-    bar: "from-indigo-500 to-violet-500",
-    dot: "border-indigo-500 bg-indigo-500 ring-4 ring-indigo-500/15",
-    dash: "bg-indigo-400",
-    chip: "border-indigo-100 bg-indigo-50 text-indigo-700 dark:border-indigo-400/20 dark:bg-indigo-500/10 dark:text-indigo-300",
-  },
-  {
     bar: "from-sky-500 to-blue-600",
     dot: "border-sky-500 bg-sky-500 ring-4 ring-sky-500/15",
     dash: "bg-sky-400",
-    chip: "border-sky-100 bg-sky-50 text-sky-700 dark:border-sky-400/20 dark:bg-sky-500/10 dark:text-sky-300",
   },
   {
-    bar: "from-emerald-500 to-teal-600",
-    dot: "border-emerald-500 bg-emerald-500 ring-4 ring-emerald-500/15",
-    dash: "bg-emerald-400",
-    chip: "border-emerald-100 bg-emerald-50 text-emerald-700 dark:border-emerald-400/20 dark:bg-emerald-500/10 dark:text-emerald-300",
+    bar: "from-cyan-400 to-teal-500",
+    dot: "border-cyan-500 bg-cyan-500 ring-4 ring-cyan-500/15",
+    dash: "bg-cyan-400",
+  },
+  {
+    // Amber ties the academic role to the MSc tile in the snapshot section.
+    bar: "from-amber-400 to-orange-500",
+    dot: "border-amber-500 bg-amber-500 ring-4 ring-amber-500/15",
+    dash: "bg-amber-400",
   },
 ];
 
@@ -192,14 +191,12 @@ export default function ExperienceCard({ data, index, className }: ExperienceCar
       aria-label={`${roles[0].title} at ${data.company}`}
     >
       <span className={cn("absolute inset-y-0 left-0 w-1 bg-gradient-to-b", accent.bar)} aria-hidden="true" />
-      <span
-        className="pointer-events-none absolute -right-1 -top-5 select-none font-black text-[6.5rem] leading-none tracking-tighter text-slate-100/80 dark:text-slate-800/50 transition-colors duration-300"
-        aria-hidden="true"
-      >
-        {String(index + 1).padStart(2, "0")}
-      </span>
-
       <div className="relative p-6 pl-7 md:p-8 md:pl-10">
+        <div className="mb-6 flex items-end gap-4">
+          <OutlineNumber index={index} className="text-5xl md:text-6xl" />
+          <span className={cn("mb-2 h-px flex-1 bg-gradient-to-r opacity-60", accent.bar)} aria-hidden="true" />
+        </div>
+
         <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-center gap-4">
             <div
@@ -301,7 +298,7 @@ export default function ExperienceCard({ data, index, className }: ExperienceCar
             {data.tags.map((tag) => (
               <span
                 key={tag}
-                className={cn("inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium", accent.chip)}
+                className="inline-flex items-center rounded-full border border-slate-200 dark:border-white/10 px-2.5 py-0.5 font-mono text-[0.7rem] text-slate-500 dark:text-slate-400"
               >
                 {tag}
               </span>

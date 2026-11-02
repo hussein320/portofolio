@@ -8,10 +8,11 @@ interface SectionLabelProps {
   className?: string;
 }
 
-const variantStyles: Record<SectionLabelVariant, string> = {
-  default: "text-neutral-400",
-  subtle: "text-neutral-300",
-  accent: "text-neutral-500",
+// "default" sits on dark backgrounds (e.g. the contact section); "accent" on light/themed ones.
+const variantStyles: Record<SectionLabelVariant, { text: string; line: string }> = {
+  default: { text: "text-sky-300", line: "bg-sky-300/60" },
+  subtle: { text: "text-slate-500 dark:text-slate-400", line: "bg-slate-300 dark:bg-white/10" },
+  accent: { text: "text-sky-600 dark:text-sky-300", line: "bg-sky-500/60 dark:bg-sky-300/60" },
 };
 
 export default function SectionLabel({
@@ -19,24 +20,17 @@ export default function SectionLabel({
   variant = "default",
   className,
 }: SectionLabelProps) {
+  const styles = variantStyles[variant];
   return (
-    <div className={cn("flex items-center gap-3", className)}>
-      <span
-        className={cn(
-          "inline-block text-xs font-semibold uppercase tracking-widest",
-          variantStyles[variant]
-        )}
-      >
-        {text}
-      </span>
-      <span
-        className="flex-1 h-px max-w-[48px] rounded-full"
-        style={{
-          background:
-            "linear-gradient(to right, rgba(156,163,175,0.5), transparent)",
-        }}
-        aria-hidden="true"
-      />
-    </div>
+    <p
+      className={cn(
+        "flex items-center gap-3 font-mono text-xs uppercase tracking-[0.3em]",
+        styles.text,
+        className
+      )}
+    >
+      <span className={cn("h-px w-10", styles.line)} aria-hidden="true" />
+      {text}
+    </p>
   );
 }

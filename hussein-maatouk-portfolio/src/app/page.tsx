@@ -4,6 +4,7 @@ import SectionLabel from "@/components/SectionLabel";
 import TimelineItem from "@/components/TimelineItem";
 import HeroSpotlight from "@/components/HeroSpotlight";
 import ExperienceCard, { CareerAxis } from "@/components/ExperienceCard";
+import OutlineNumber from "@/components/OutlineNumber";
 import { experience } from "@/data/experience";
 import { education } from "@/data/education";
 import projects from "@/data/projects";
@@ -203,19 +204,10 @@ function ProjectLinkButton({ project }: { project: ProjectEntry }) {
   );
 }
 
-function ProjectNumber({ index, className }: { index: number; className?: string }) {
-  return (
-    <span
-      className={cn(
-        "font-black leading-none text-transparent select-none [-webkit-text-stroke:1px_rgba(100,116,139,0.55)] dark:[-webkit-text-stroke:1px_rgba(148,163,184,0.45)]",
-        className
-      )}
-      aria-hidden="true"
-    >
-      {String(index + 1).padStart(2, "0")}
-    </span>
-  );
-}
+const gradientText =
+  "bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500 bg-clip-text text-transparent dark:from-sky-300 dark:via-blue-400 dark:to-cyan-300";
+
+const sectionHeading = "text-4xl md:text-6xl font-black tracking-tight text-slate-950 dark:text-white";
 
 function ProjectShowcase({ project, index }: { project: ProjectEntry; index: number }) {
   const meta = projectMeta[project.id];
@@ -255,7 +247,7 @@ function ProjectShowcase({ project, index }: { project: ProjectEntry; index: num
 
       <div className={cn("lg:col-span-5", flipped && "lg:order-1")}>
         <div className="flex items-end gap-4">
-          <ProjectNumber index={index} className="text-6xl md:text-7xl" />
+          <OutlineNumber index={index} className="text-6xl md:text-7xl" />
           <span className={cn("mb-2 h-px flex-1 bg-gradient-to-r opacity-60", meta.accent)} aria-hidden="true" />
         </div>
         <p className="mt-6 font-mono text-xs uppercase tracking-[0.2em] text-sky-600 dark:text-sky-300">{meta.category}</p>
@@ -300,7 +292,7 @@ function ProjectTerminalCard({ project, index }: { project: ProjectEntry; index:
       )}
       <div className="mt-6 flex items-start justify-between gap-4">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-sky-600 dark:text-sky-300">{meta.category}</p>
-        <ProjectNumber index={index} className="text-4xl" />
+        <OutlineNumber index={index} className="text-4xl" />
       </div>
       <h3 className="mt-2 text-xl font-extrabold leading-snug tracking-tight text-slate-950 dark:text-white">{project.title}</h3>
       <p className="mt-3 truncate-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{project.description}</p>
@@ -325,24 +317,24 @@ export default function Page() {
     <main className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white antialiased overflow-x-hidden">
       <section
         id="hero"
-        className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-gradient-to-br from-slate-50 dark:from-slate-950 via-white dark:via-slate-950 to-indigo-50/40 dark:to-indigo-950/40 pt-20 pb-40"
+        className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-gradient-to-br from-slate-50 dark:from-slate-950 via-white dark:via-slate-950 to-sky-50/40 dark:to-sky-950/40 pt-20 pb-40"
       >
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute -top-32 right-12 h-[680px] w-[680px] rounded-full bg-indigo-200/35 dark:bg-indigo-500/15 blur-3xl motion-safe:animate-float-slow" />
-          <div className="absolute bottom-0 left-10 h-[480px] w-[480px] rounded-full bg-violet-200/35 dark:bg-violet-500/10 blur-3xl motion-safe:animate-float" />
+          <div className="absolute -top-32 right-12 h-[680px] w-[680px] rounded-full bg-sky-200/35 dark:bg-sky-500/15 blur-3xl motion-safe:animate-float-slow" />
+          <div className="absolute bottom-0 left-10 h-[480px] w-[480px] rounded-full bg-blue-200/35 dark:bg-blue-500/10 blur-3xl motion-safe:animate-float" />
           <div className="absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-100/40 dark:bg-cyan-500/10 blur-3xl motion-safe:animate-pulse-soft" />
           <div className="absolute inset-0 bg-grid opacity-60" />
         </div>
         <HeroSpotlight />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="flex flex-col gap-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 dark:border-indigo-400/30 bg-white/70 dark:bg-slate-900/70 px-4 py-1.5 w-fit shadow-sm backdrop-blur">
-              <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
-              <span className="text-xs font-semibold tracking-widest uppercase text-indigo-600 dark:text-indigo-400">Available for opportunities</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 dark:border-sky-400/30 bg-white/70 dark:bg-slate-900/70 px-4 py-1.5 w-fit shadow-sm backdrop-blur">
+              <span className="h-2 w-2 rounded-full bg-sky-500 animate-pulse" />
+              <span className="text-xs font-semibold tracking-widest uppercase text-sky-600 dark:text-sky-400">Available for opportunities</span>
             </div>
             <h1 className="text-6xl md:text-7xl lg:text-8xl font-black leading-none tracking-tighter text-slate-950 dark:text-white">
               Hussein<br />
-              <span className="bg-gradient-to-r from-indigo-600 dark:from-indigo-400 to-violet-600 dark:to-violet-400 bg-clip-text text-transparent">Maatouk</span>
+              <span className="bg-gradient-to-r from-sky-600 dark:from-sky-400 to-blue-600 dark:to-blue-400 bg-clip-text text-transparent">Maatouk</span>
             </h1>
             <p className="text-xl md:text-2xl font-bold text-slate-600 dark:text-slate-300 leading-snug max-w-xl">
               Cloud Data Engineer &middot; AI&nbsp;&amp;&nbsp;ML Practitioner
@@ -353,7 +345,7 @@ export default function Page() {
             <div className="flex flex-wrap gap-3 mt-2">
               <a
                 href="#experience"
-                className="inline-flex items-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-indigo-700 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-xl bg-sky-600 px-6 py-3 text-sm font-semibold text-white shadow-md hover:bg-sky-700 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
               >
                 View Experience
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -370,8 +362,8 @@ export default function Page() {
           </div>
           <div className="relative flex justify-center lg:justify-end">
             <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-[440px] lg:h-[440px]">
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-200 dark:from-indigo-500/40 to-violet-200 dark:to-violet-500/40 rotate-3 scale-105 opacity-60" />
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-tl from-indigo-100 dark:from-indigo-500/20 to-sky-100 dark:to-sky-500/20 -rotate-2 opacity-40" />
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-sky-200 dark:from-sky-500/40 to-blue-200 dark:to-blue-500/40 rotate-3 scale-105 opacity-60" />
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-tl from-sky-100 dark:from-sky-500/20 to-sky-100 dark:to-sky-500/20 -rotate-2 opacity-40" />
               <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border border-white/80 dark:border-white/10">
                 <Image
                   src="/images/my_pic.png"
@@ -444,9 +436,9 @@ export default function Page() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
           <div className="lg:col-span-3 flex flex-col gap-6">
             <SectionLabel text="Professional Profile" variant="accent" />
-            <h2 id="profile-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950 dark:text-white leading-tight">
+            <h2 id="profile-heading" className={cn(sectionHeading, "leading-tight")}>
               Turning complex data into<br />
-              <span className="text-indigo-600 dark:text-indigo-400">strategic decisions</span>
+              <span className={gradientText}>strategic decisions</span>
             </h2>
             <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed">
               I am a Cloud Data Engineer with hands-on expertise in designing end-to-end ELT pipelines, orchestrating distributed workflows, and building reliable data platforms that transform large-scale datasets into actionable intelligence. My academic background &mdash; an MSc in Data Science and AI with honours &mdash; underpins a rigorous, research-informed approach to engineering.
@@ -458,7 +450,7 @@ export default function Page() {
               {["Apache Kafka", "Apache Airflow", "dbt", "Dataform", "BigQuery", "GCP", "PySpark", "Tableau", "Python", "SQL"].map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center rounded-full border border-indigo-100 dark:border-indigo-400/20 bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-700 dark:text-indigo-300"
+                  className="inline-flex items-center rounded-full border border-sky-100 dark:border-sky-400/20 bg-sky-50 dark:bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-700 dark:text-sky-300"
                 >
                   {tag}
                 </span>
@@ -471,7 +463,7 @@ export default function Page() {
               <ul className="flex flex-col gap-3">
                 {contact.map((c) => (
                   <li key={c.type} className="flex items-start gap-3">
-                    <span className="mt-0.5 text-indigo-500">
+                    <span className="mt-0.5 text-sky-500">
                       {c.icon === "mail" && (
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
                       )}
@@ -488,7 +480,7 @@ export default function Page() {
                     <div className="flex flex-col">
                       <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">{c.type}</span>
                       {c.href ? (
-                        <Link href={c.href} className="text-sm text-slate-700 dark:text-slate-200 font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                        <Link href={c.href} className="text-sm text-slate-700 dark:text-slate-200 font-medium hover:text-sky-600 dark:hover:text-sky-400 transition-colors">
                           {c.value}
                         </Link>
                       ) : (
@@ -511,7 +503,7 @@ export default function Page() {
         <div className="max-w-5xl mx-auto px-6 lg:px-12">
           <div className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Professional Experience" variant="accent" />
-            <h2 id="experience-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950 dark:text-white">Where I have made an impact</h2>
+            <h2 id="experience-heading" className={sectionHeading}>Where I have made an <span className={gradientText}>impact</span></h2>
           </div>
           <CareerAxis entries={experience} />
           <div className="flex flex-col gap-6">
@@ -530,10 +522,10 @@ export default function Page() {
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <div className="flex flex-col gap-3 mb-12">
             <SectionLabel text="Thesis & Research" variant="accent" />
-            <h2 id="research-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950 dark:text-white">Fairness-Aware Geospatial Research</h2>
+            <h2 id="research-heading" className={sectionHeading}>Fairness-Aware <span className={gradientText}>Geospatial</span> Research</h2>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-indigo-100/60 aspect-[4/3]">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-sky-100/60 aspect-[4/3]">
               <Image
                 src="/images/research-geospatial-fairness.png"
                 alt="Fairness-aware geospatial data preprocessing research"
@@ -541,9 +533,9 @@ export default function Page() {
                 sizes="(max-width:1024px) 100vw, 50vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-900/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-sky-900/30 to-transparent" />
               <div className="absolute bottom-5 left-5 right-5">
-                <span className="inline-block rounded-full bg-white/90 dark:bg-slate-950/85 backdrop-blur-sm px-4 py-1.5 text-xs font-semibold text-indigo-700 dark:text-indigo-300 shadow">
+                <span className="inline-block rounded-full bg-white/90 dark:bg-slate-950/85 backdrop-blur-sm px-4 py-1.5 text-xs font-semibold text-sky-700 dark:text-sky-300 shadow">
                   MSc Thesis &mdash; University of Genova
                 </span>
               </div>
@@ -564,7 +556,7 @@ export default function Page() {
                 {["Python", "PostGIS", "PostgreSQL", "Geospatial Analysis", "Fairness-Aware ML", "Ethical AI", "Research"].map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center rounded-full border border-indigo-100 dark:border-indigo-400/20 bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-700 dark:text-indigo-300"
+                    className="inline-flex items-center rounded-full border border-sky-100 dark:border-sky-400/20 bg-sky-50 dark:bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-700 dark:text-sky-300"
                   >
                     {tag}
                   </span>
@@ -593,7 +585,7 @@ export default function Page() {
               </p>
               <h2 id="projects-heading" className="mt-5 text-5xl font-black tracking-tight text-slate-950 dark:text-white md:text-7xl">
                 Things I&apos;ve{" "}
-                <span className="bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500 bg-clip-text dark:from-sky-300 dark:via-blue-400 dark:to-cyan-300 text-transparent">built</span>
+                <span className={gradientText}>built</span>
               </h2>
             </div>
             <p className="max-w-sm text-base leading-relaxed text-slate-600 dark:text-slate-400">
@@ -631,7 +623,7 @@ export default function Page() {
         <div className="max-w-5xl mx-auto px-6 lg:px-12">
           <div className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Education" variant="accent" />
-            <h2 id="education-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950 dark:text-white">Academic foundation</h2>
+            <h2 id="education-heading" className={sectionHeading}>Academic <span className={gradientText}>foundation</span></h2>
           </div>
           <div className="flex flex-col">
             {education.map((edu, idx) => (
@@ -655,7 +647,7 @@ export default function Page() {
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <div className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Skills & Languages" variant="accent" />
-            <h2 id="skills-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950 dark:text-white">Technical expertise</h2>
+            <h2 id="skills-heading" className={sectionHeading}>Technical <span className={gradientText}>expertise</span></h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
             {skillCategories.map((cat) => (
@@ -663,12 +655,12 @@ export default function Page() {
                 key={cat.id}
                 className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm hover:shadow-md transition-shadow duration-200"
               >
-                <h3 className="text-sm font-bold uppercase tracking-widest text-indigo-500 mb-4">{cat.category}</h3>
+                <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-sky-600 dark:text-sky-300">{cat.category}</h3>
                 <div className="flex flex-wrap gap-2">
                   {cat.skills.map((skill) => (
                     <span
                       key={skill.name}
-                      className="inline-flex items-center rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 px-3 py-1 text-xs font-medium text-slate-700 dark:text-slate-200 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:border-indigo-200 dark:hover:border-indigo-400/30 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors duration-150"
+                      className="inline-flex items-center rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 px-3 py-1 text-xs font-medium text-slate-700 dark:text-slate-200 hover:bg-sky-50 dark:hover:bg-sky-500/10 hover:border-sky-200 dark:hover:border-sky-400/30 hover:text-sky-700 dark:hover:text-sky-300 transition-colors duration-150"
                     >
                       {skill.name}
                     </span>
@@ -677,8 +669,8 @@ export default function Page() {
               </div>
             ))}
           </div>
-          <div className="rounded-2xl border border-indigo-100 dark:border-indigo-400/20 bg-gradient-to-br from-indigo-50/60 dark:from-indigo-500/10 to-violet-50/40 dark:to-violet-500/5 p-8">
-            <h3 className="text-sm font-bold uppercase tracking-widest text-indigo-500 mb-6">Languages</h3>
+          <div className="rounded-2xl border border-sky-100 dark:border-sky-400/20 bg-gradient-to-br from-sky-50/60 dark:from-sky-500/10 to-blue-50/40 dark:to-blue-500/5 p-8">
+            <h3 className="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-sky-600 dark:text-sky-300">Languages</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-6">
               {languages.map((lang) => (
                 <div key={lang.language} className="flex flex-col gap-1.5">
@@ -688,7 +680,7 @@ export default function Page() {
                   <span className="flex-1 text-sm text-slate-500 dark:text-slate-400">{lang.level}</span>
                   <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                     <div
-                      className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-500"
+                      className="h-full rounded-full bg-gradient-to-r from-sky-500 to-blue-500"
                       style={{
                         width:
                           lang.level === "Native"
@@ -697,6 +689,8 @@ export default function Page() {
                             ? "88%"
                             : lang.level.toLowerCase().includes("professional")
                             ? "72%"
+                            : lang.level.toLowerCase().includes("beginner")
+                            ? "30%"
                             : "55%",
                       }}
                     />
@@ -716,7 +710,7 @@ export default function Page() {
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
           <div className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Volunteering" variant="accent" />
-            <h2 id="volunteering-heading" className="text-4xl md:text-5xl font-black tracking-tight text-slate-950 dark:text-white">Giving back to the community</h2>
+            <h2 id="volunteering-heading" className={sectionHeading}>Giving back to the <span className={gradientText}>community</span></h2>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
             <div className="lg:col-span-2 relative rounded-3xl overflow-hidden shadow-xl aspect-[3/4]">
@@ -740,7 +734,7 @@ export default function Page() {
                     <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
                       <span className="font-medium text-slate-700 dark:text-slate-200">{vol.organization}</span>
                       <span className="text-slate-300 dark:text-slate-600" aria-hidden="true">&middot;</span>
-                      <span>
+                      <span className="font-mono text-xs">
                         {new Date(vol.startDate).getFullYear()}&ndash;{vol.endDate ? new Date(vol.endDate).getFullYear() : "Present"}
                       </span>
                     </div>
@@ -749,7 +743,7 @@ export default function Page() {
                   <ul className="space-y-1.5">
                     {(vol.highlights ?? []).map((h, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300">
-                        <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-indigo-400" aria-hidden="true" />
+                        <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-sky-400" aria-hidden="true" />
                         <span>{h}</span>
                       </li>
                     ))}
@@ -763,14 +757,14 @@ export default function Page() {
 
       <section
         id="contact"
-        className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 py-24"
+        className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 py-24"
         aria-labelledby="contact-heading"
       >
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center flex flex-col items-center gap-10">
           <div className="flex flex-col items-center gap-4">
             <SectionLabel text="Get In Touch" />
             <h2 id="contact-heading" className="text-4xl md:text-6xl font-black tracking-tight text-white">
-              Let&apos;s build something great together
+              Let&apos;s build something <span className="bg-gradient-to-r from-sky-300 via-blue-400 to-cyan-300 bg-clip-text text-transparent">great</span> together
             </h2>
             <p className="text-lg text-slate-400 max-w-xl leading-relaxed">
               Open to new opportunities in cloud data engineering and distributed data platforms. Feel free to reach out directly.
@@ -785,9 +779,9 @@ export default function Page() {
                 href={c.href!}
                 target={c.href?.startsWith("http") ? "_blank" : undefined}
                 rel={c.href?.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="group flex w-full max-w-xs flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 text-center hover:bg-white/10 hover:border-indigo-400/40 transition-all duration-200 sm:w-auto sm:min-w-[14rem]"
+                className="group flex w-full max-w-xs flex-col items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 text-center hover:bg-white/10 hover:border-sky-400/40 transition-all duration-200 sm:w-auto sm:min-w-[14rem]"
               >
-                <span className="text-indigo-400 group-hover:text-indigo-300 transition-colors shrink-0">
+                <span className="text-sky-400 group-hover:text-sky-300 transition-colors shrink-0">
                   {c.icon === "mail" && (
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
                   )}
@@ -797,7 +791,7 @@ export default function Page() {
                 </span>
                 <div className="flex flex-col items-center min-w-0">
                   <span className="text-xs font-medium text-slate-500 uppercase tracking-widest">{c.type}</span>
-                  <span className="text-sm font-semibold text-white group-hover:text-indigo-300 transition-colors">{c.value}</span>
+                  <span className="text-sm font-semibold text-white group-hover:text-sky-300 transition-colors">{c.value}</span>
                 </div>
               </Link>
             ))}

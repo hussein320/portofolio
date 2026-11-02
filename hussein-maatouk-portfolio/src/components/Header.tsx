@@ -63,7 +63,7 @@ export default function Header() {
           <a
             href="#hero"
             onClick={() => handleNavClick("#hero")}
-            className="group flex flex-col leading-none focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 rounded-sm"
+            className="group flex flex-col leading-none focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 rounded-sm"
             aria-label="Hussein Maatouk — home"
           >
             <span
@@ -77,7 +77,7 @@ export default function Header() {
             <span
               className={cn(
                 "text-xs font-medium tracking-widest uppercase transition-colors duration-300",
-                scrolled ? "text-indigo-600 dark:text-indigo-400" : "text-indigo-300"
+                scrolled ? "text-sky-600 dark:text-sky-400" : "text-sky-300"
               )}
             >
               Cloud Data Engineer
@@ -94,10 +94,10 @@ export default function Header() {
                 href={item.href}
                 onClick={() => handleNavClick(item.href)}
                 className={cn(
-                  "relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2",
+                  "relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",
                   activeSection === item.href
                     ? scrolled
-                      ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10"
+                      ? "text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-500/10"
                       : "text-white bg-white/15"
                     : scrolled
                     ? "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
@@ -114,10 +114,10 @@ export default function Header() {
               href="#contact"
               onClick={() => handleNavClick("#contact")}
               className={cn(
-                "inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 shadow-sm hover:shadow-md active:scale-95",
+                "inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 shadow-sm hover:shadow-md active:scale-95",
                 scrolled
-                  ? "bg-indigo-600 text-white hover:bg-indigo-700"
-                  : "bg-white dark:bg-slate-900 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10"
+                  ? "bg-sky-600 text-white hover:bg-sky-700"
+                  : "bg-white dark:bg-slate-900 text-sky-700 dark:text-sky-300 hover:bg-sky-50 dark:hover:bg-sky-500/10"
               )}
             >
               Get in Touch
@@ -131,7 +131,7 @@ export default function Header() {
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((prev) => !prev)}
             className={cn(
-              "md:hidden flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2",
+              "md:hidden flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2",
               scrolled
                 ? "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
                 : "text-white hover:bg-white/10"
@@ -177,7 +177,7 @@ export default function Header() {
               type="button"
               aria-label="Close menu"
               onClick={() => setMenuOpen(false)}
-              className="flex items-center justify-center w-9 h-9 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-slate-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+              className="flex items-center justify-center w-9 h-9 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-slate-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500"
             >
               <HiX className="w-5 h-5" />
             </button>
@@ -193,9 +193,9 @@ export default function Header() {
                 href={item.href}
                 onClick={() => handleNavClick(item.href)}
                 className={cn(
-                  "flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500",
+                  "flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500",
                   activeSection === item.href
-                    ? "bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 font-semibold"
+                    ? "bg-sky-50 dark:bg-sky-500/10 text-sky-700 dark:text-sky-300 font-semibold"
                     : "text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white"
                 )}
               >
@@ -208,7 +208,7 @@ export default function Header() {
             <a
               href="#contact"
               onClick={() => handleNavClick("#contact")}
-              className="flex items-center justify-center w-full px-5 py-3 rounded-full bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 active:scale-95 transition-all duration-200 shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+              className="flex items-center justify-center w-full px-5 py-3 rounded-full bg-sky-600 text-white text-sm font-semibold hover:bg-sky-700 active:scale-95 transition-all duration-200 shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"
             >
               Get in Touch
             </a>
