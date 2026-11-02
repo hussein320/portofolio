@@ -134,6 +134,7 @@ export function CareerAxis({ entries }: { entries: ExperienceEntry[] }) {
 
   return (
     <figure
+      data-reveal="up"
       className="mb-10 rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white/70 dark:bg-slate-900/60 p-5 md:p-6 backdrop-blur-sm"
       aria-label="Career timeline"
     >
@@ -160,6 +161,8 @@ export function CareerAxis({ entries }: { entries: ExperienceEntry[] }) {
 
         {spans.map(({ entry, start, end, promotions }, i) => {
           const accent = accents[i % accents.length];
+          // Bars grow in chronological order: the earlier a role started, the sooner it animates.
+          const delay = Math.round(((start - axisStart) / axisLength) * 900);
           return (
             <React.Fragment key={entry.id}>
               <span className="flex min-w-0 items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300 md:self-center">
@@ -171,10 +174,14 @@ export function CareerAxis({ entries }: { entries: ExperienceEntry[] }) {
                 <a
                   href={`#exp-${entry.id}`}
                   className={cn(
-                    "group/seg absolute inset-y-0 rounded-full bg-gradient-to-r shadow-sm transition-all duration-300 hover:brightness-110 hover:shadow-md",
+                    "grow-x absolute inset-y-0 rounded-full bg-gradient-to-r shadow-sm hover:brightness-110 hover:shadow-md",
                     accent.bar
                   )}
-                  style={{ left: `${pct(start)}%`, width: `${pct(end) - pct(start)}%` }}
+                  style={{
+                    left: `${pct(start)}%`,
+                    width: `${pct(end) - pct(start)}%`,
+                    ["--delay" as string]: `${delay}ms`,
+                  }}
                   aria-label={`${entry.company}: ${formatMonth(companyStart(entry))} to ${formatMonth(entry.endDate)}`}
                 >
                   {promotions.map((month) => (
@@ -186,7 +193,11 @@ export function CareerAxis({ entries }: { entries: ExperienceEntry[] }) {
                     />
                   ))}
                   {entry.endDate === null && (
-                    <span className="absolute right-0 top-1/2 flex h-3 w-3 -translate-y-1/2" aria-hidden="true">
+                    <span
+                      className="after-grow absolute right-0 top-1/2 flex h-3 w-3 -translate-y-1/2"
+                      style={{ ["--delay" as string]: `${delay + 900}ms` }}
+                      aria-hidden="true"
+                    >
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                       <span className="relative inline-flex h-3 w-3 rounded-full border-2 border-white dark:border-slate-900 bg-emerald-500" />
                     </span>

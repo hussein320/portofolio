@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import SectionLabel from "@/components/SectionLabel";
 import TimelineItem from "@/components/TimelineItem";
-import HeroSpotlight from "@/components/HeroSpotlight";
+import MotionObserver from "@/components/MotionObserver";
+import CountUp from "@/components/CountUp";
 import ExperienceCard, { CareerAxis } from "@/components/ExperienceCard";
 import OutlineNumber from "@/components/OutlineNumber";
 import { experience } from "@/data/experience";
@@ -210,6 +211,11 @@ function ProjectLinkButton({ project }: { project: ProjectEntry }) {
 const gradientText =
   "bg-gradient-to-r from-sky-600 via-blue-700 to-cyan-700 bg-clip-text text-transparent dark:from-sky-300 dark:via-blue-400 dark:to-cyan-300";
 
+// Inline style for staggering a [data-reveal] element; see the scroll reveal rules in globals.css.
+function revealDelay(ms: number): React.CSSProperties {
+  return { ["--delay" as string]: `${ms}ms` };
+}
+
 const sectionHeading = "text-4xl md:text-6xl font-black tracking-tight text-slate-950 dark:text-white";
 
 function ProjectShowcase({ project, index }: { project: ProjectEntry; index: number }) {
@@ -318,6 +324,7 @@ export default function Page() {
 
   return (
     <main className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white antialiased overflow-x-hidden">
+      <MotionObserver />
       <section
         id="hero"
         className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-gradient-to-br from-slate-50 dark:from-slate-950 via-white dark:via-slate-950 to-sky-50/40 dark:to-sky-950/40 pt-20 pb-40"
@@ -328,7 +335,6 @@ export default function Page() {
           <div className="absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-100/40 dark:bg-cyan-500/10 blur-3xl motion-safe:animate-pulse-soft" />
           <div className="absolute inset-0 bg-grid opacity-60" />
         </div>
-        <HeroSpotlight />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="flex flex-col gap-6">
             <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 dark:border-sky-400/30 bg-white/70 dark:bg-slate-900/70 px-4 py-1.5 w-fit shadow-sm backdrop-blur">
@@ -410,7 +416,7 @@ export default function Page() {
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <span className={cn("bg-gradient-to-br bg-clip-text text-4xl sm:text-5xl font-black leading-none tracking-tight text-transparent", accent.number)}>
-                  {value}
+                  <CountUp value={value} />
                 </span>
                 <div className="relative flex flex-col gap-1">
                   <span className="text-sm font-bold text-slate-900 dark:text-white">{label}</span>
@@ -504,14 +510,16 @@ export default function Page() {
         aria-labelledby="experience-heading"
       >
         <div className="max-w-5xl mx-auto px-6 lg:px-12">
-          <div className="flex flex-col gap-3 mb-14">
+          <div data-reveal="up" className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Professional Experience" variant="accent" />
             <h2 id="experience-heading" className={sectionHeading}>Where I have made an <span className={gradientText}>impact</span></h2>
           </div>
           <CareerAxis entries={experience} />
           <div className="flex flex-col gap-6">
             {experience.map((exp, idx) => (
-              <ExperienceCard key={exp.id} data={exp} index={idx} />
+              <div key={exp.id} data-reveal="up">
+                <ExperienceCard data={exp} index={idx} />
+              </div>
             ))}
           </div>
         </div>
@@ -523,11 +531,11 @@ export default function Page() {
         aria-labelledby="research-heading"
       >
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
-          <div className="flex flex-col gap-3 mb-12">
+          <div data-reveal="up" className="flex flex-col gap-3 mb-12">
             <SectionLabel text="Thesis & Research" variant="accent" />
             <h2 id="research-heading" className={sectionHeading}>Fairness-Aware <span className={gradientText}>Geospatial</span> Research</h2>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div data-reveal="up" className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-sky-100/60 aspect-[4/3]">
               <Image
                 src="/images/research-geospatial-fairness.png"
@@ -580,7 +588,7 @@ export default function Page() {
         <div className="absolute -right-40 bottom-40 h-[28rem] w-[28rem] rounded-full bg-blue-400/20 blur-3xl dark:bg-blue-600/20" aria-hidden="true" />
 
         <div className="relative max-w-6xl mx-auto px-6 lg:px-12">
-          <div className="mb-20 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div data-reveal="up" className="mb-20 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.3em] text-sky-600 dark:text-sky-300">
                 <span className="h-px w-10 bg-sky-500/60 dark:bg-sky-300/60" aria-hidden="true" />
@@ -598,19 +606,23 @@ export default function Page() {
 
           <div className="flex flex-col gap-28">
             {showcaseProjects.map((project, idx) => (
-              <ProjectShowcase key={project.id} project={project} index={idx} />
+              <div key={project.id} data-reveal="up">
+                <ProjectShowcase project={project} index={idx} />
+              </div>
             ))}
           </div>
 
           {otherProjects.length > 0 && (
             <>
-              <div className="mb-10 mt-28 flex items-center gap-4">
+              <div data-reveal="up" className="mb-10 mt-28 flex items-center gap-4">
                 <h3 className="font-mono text-xs uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">More builds &amp; research</h3>
                 <span className="h-px flex-1 bg-slate-200 dark:bg-white/10" aria-hidden="true" />
               </div>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {otherProjects.map((project, idx) => (
-                  <ProjectTerminalCard key={project.id} project={project} index={showcaseProjects.length + idx} />
+                  <div key={project.id} data-reveal="up" className="h-full" style={revealDelay((idx % 2) * 100)}>
+                    <ProjectTerminalCard project={project} index={showcaseProjects.length + idx} />
+                  </div>
                 ))}
               </div>
             </>
@@ -624,19 +636,20 @@ export default function Page() {
         aria-labelledby="education-heading"
       >
         <div className="max-w-5xl mx-auto px-6 lg:px-12">
-          <div className="flex flex-col gap-3 mb-14">
+          <div data-reveal="up" className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Education" variant="accent" />
             <h2 id="education-heading" className={sectionHeading}>Academic <span className={gradientText}>foundation</span></h2>
           </div>
           <div className="flex flex-col">
             {education.map((edu, idx) => (
-              <TimelineItem
-                key={edu.id}
-                variant="education"
-                data={edu}
-                align="left"
-                isLast={idx === education.length - 1}
-              />
+              <div key={edu.id} data-reveal="up">
+                <TimelineItem
+                  variant="education"
+                  data={edu}
+                  align="left"
+                  isLast={idx === education.length - 1}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -648,14 +661,16 @@ export default function Page() {
         aria-labelledby="skills-heading"
       >
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
-          <div className="flex flex-col gap-3 mb-14">
+          <div data-reveal="up" className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Skills & Languages" variant="accent" />
             <h2 id="skills-heading" className={sectionHeading}>Technical <span className={gradientText}>expertise</span></h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
-            {skillCategories.map((cat) => (
+            {skillCategories.map((cat, idx) => (
               <div
                 key={cat.id}
+                data-reveal="up"
+                style={revealDelay((idx % 3) * 90)}
                 className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm hover:shadow-md transition-shadow duration-200"
               >
                 <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-sky-600 dark:text-sky-300">{cat.category}</h3>
@@ -672,10 +687,10 @@ export default function Page() {
               </div>
             ))}
           </div>
-          <div className="rounded-2xl border border-sky-100 dark:border-sky-400/20 bg-gradient-to-br from-sky-50/60 dark:from-sky-500/10 to-blue-50/40 dark:to-blue-500/5 p-8">
+          <div data-reveal="up" className="rounded-2xl border border-sky-100 dark:border-sky-400/20 bg-gradient-to-br from-sky-50/60 dark:from-sky-500/10 to-blue-50/40 dark:to-blue-500/5 p-8">
             <h3 className="mb-6 font-mono text-xs uppercase tracking-[0.2em] text-sky-600 dark:text-sky-300">Languages</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-              {languages.map((lang) => (
+              {languages.map((lang, idx) => (
                 <div key={lang.language} className="flex flex-col gap-1.5">
                   <div className="flex items-center justify-between">
                     <span className="text-base font-bold text-slate-900 dark:text-white">{lang.language}</span>
@@ -683,8 +698,9 @@ export default function Page() {
                   <span className="flex-1 text-sm text-slate-500 dark:text-slate-400">{lang.level}</span>
                   <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                     <div
-                      className="h-full rounded-full bg-gradient-to-r from-sky-500 to-blue-500"
+                      className="grow-x h-full rounded-full bg-gradient-to-r from-sky-500 to-blue-500"
                       style={{
+                        ...revealDelay(200 + idx * 120),
                         width:
                           lang.level === "Native"
                             ? "100%"
@@ -711,7 +727,7 @@ export default function Page() {
         aria-labelledby="volunteering-heading"
       >
         <div className="max-w-6xl mx-auto px-6 lg:px-12">
-          <div className="flex flex-col gap-3 mb-14">
+          <div data-reveal="up" className="flex flex-col gap-3 mb-14">
             <SectionLabel text="Volunteering" variant="accent" />
             <h2 id="volunteering-heading" className={sectionHeading}>Giving back to the <span className={gradientText}>community</span></h2>
           </div>
@@ -727,9 +743,11 @@ export default function Page() {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
             </div>
             <div className="lg:col-span-3 flex flex-col gap-8">
-              {volunteering.map((vol) => (
+              {volunteering.map((vol, idx) => (
                 <div
                   key={vol.id}
+                  data-reveal="up"
+                  style={revealDelay(idx * 100)}
                   className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
                 >
                   <div className="flex flex-col gap-1 mb-3">
