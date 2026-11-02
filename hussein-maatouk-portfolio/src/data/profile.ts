@@ -181,7 +181,7 @@ const profileData: PortfolioData = {
       organization: "Lebanese Red Cross",
       role: "Field Volunteer & Data Coordinator",
       startDate: "2019-06",
-      endDate: null,
+      endDate: "2025-12",
       description: "Active volunteer contributing to humanitarian field operations and internal data coordination. Supported the digitisation and mapping of relief distribution routes across vulnerable communities.",
       highlights: [
         "Mapped emergency relief routes using open-source GIS tools",

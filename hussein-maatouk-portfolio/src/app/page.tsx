@@ -15,6 +15,9 @@ import type { ProjectEntry } from "@/types/profile";
 import type { IconType } from "react-icons";
 import { HiAcademicCap, HiBriefcase, HiCode, HiTranslate } from "react-icons/hi";
 
+// Re-render at most once a day so date-based values (tenure, years of experience) stay current without a redeploy.
+export const revalidate = 86400;
+
 const careerStart = new Date("2024-04-01");
 const yearsOfExperience = Math.floor((Date.now() - careerStart.getTime()) / (365.25 * 24 * 3600 * 1000));
 
@@ -205,7 +208,7 @@ function ProjectLinkButton({ project }: { project: ProjectEntry }) {
 }
 
 const gradientText =
-  "bg-gradient-to-r from-sky-500 via-blue-600 to-cyan-500 bg-clip-text text-transparent dark:from-sky-300 dark:via-blue-400 dark:to-cyan-300";
+  "bg-gradient-to-r from-sky-600 via-blue-700 to-cyan-700 bg-clip-text text-transparent dark:from-sky-300 dark:via-blue-400 dark:to-cyan-300";
 
 const sectionHeading = "text-4xl md:text-6xl font-black tracking-tight text-slate-950 dark:text-white";
 

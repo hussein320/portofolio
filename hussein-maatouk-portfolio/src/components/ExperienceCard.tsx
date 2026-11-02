@@ -82,6 +82,10 @@ export function CareerAxis({ entries }: { entries: ExperienceEntry[] }) {
   const axisStart = firstYear * 12;
   const axisLength = (lastYear + 1) * 12 - axisStart;
   const pct = (month: number) => ((month - axisStart) / axisLength) * 100;
+  // Ongoing roles run to the edge of the axis so they read as "still going".
+  for (const span of spans) {
+    if (span.entry.endDate === null) span.end = axisStart + axisLength;
+  }
   const years = Array.from({ length: lastYear - firstYear + 1 }, (_, i) => firstYear + i);
 
   const yearLines = years.slice(1).map((year) => (
@@ -146,7 +150,7 @@ export function CareerAxis({ entries }: { entries: ExperienceEntry[] }) {
                     />
                   ))}
                   {entry.endDate === null && (
-                    <span className="absolute -right-1 top-1/2 flex h-3 w-3 -translate-y-1/2" aria-hidden="true">
+                    <span className="absolute right-0 top-1/2 flex h-3 w-3 -translate-y-1/2" aria-hidden="true">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
                       <span className="relative inline-flex h-3 w-3 rounded-full border-2 border-white dark:border-slate-900 bg-emerald-500" />
                     </span>
